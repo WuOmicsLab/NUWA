@@ -2,7 +2,7 @@
 
 ## Description
 
-An R package implementing NUWA pipeline to infer abundances of missing cell markers and decipher relative immune cell fractions using mass spectrometry-based proteomic profiles. It consists of two major functions: (1) "NUWAms",  to infer  abundances of missing cell markers using the given co-expression networks of individual marker. For users' convenience, the package includes built-in cancer co-expression networks for markers of BCIC, LM22, LM6, MCPcounter and xCell signatures/marker lists. (2) "NUWAeDeconv", an ensemble method of three deconvolution algorithm-signature combinations to estimate the relative fractions of six  immune cell types. 
+An R package implementing NUWA pipeline to infer abundances of missing cell markers and decipher relative immune cell fractions using mass spectrometry-based proteomic profiles. It consists of two major functions: (1) `NUWAms`,  to infer  abundances of missing cell markers using the given co-expression networks of individual marker. For users' convenience, the package includes built-in cancer co-expression networks for markers of BCIC, LM22, LM6, MCPcounter and xCell signatures/marker lists. (2) `NUWAeDeconv`, an ensemble method of three deconvolution algorithm-signature combinations to estimate the relative fractions of six immune cell types. 
 
 ## Installation
 
@@ -15,13 +15,13 @@ devtools::install_github('Wulab-CCB/NUWA')
 
 ## Usages
 
-The main functions in NUWA package are ` NUWAms`  and ` NUWAeDeconv`. See below for a quick start, while details of each parameters is available at the document file.
+The main functions in NUWA package are `NUWAms`  and `NUWAeDeconv`. See below for a quick start, while details of each parameters is available at the document file.
 
 ### 1) NUWAms
 
 NUWAms takes a protein abundance matrix and a co-expression networks (optional) as input. Each column of protein abundance matrix represents a sample and each row represents a protein.  
 
-(a) Run `NUWAms` using the default co-expression network for LM22, LM6 and BCIC signatures:
+(**a**) Run `NUWAms` using the default co-expression network for LM22, LM6 and BCIC signatures:
 
 ```R
 library(NUWA)  ## load NUWA package
@@ -29,7 +29,7 @@ res_nuwams = NUWAms(expr = raw_expr, network = NULL)
 ```
 "res_nuwams" is a list including an expression matrix after abundance inference of missing markers using NUWAms modelling, and additional matrices used to evaluate the inference accuracy.
 
-(b) Run `NUWAms` with a customized co-expression network, which is built by function `buildNetwork` using user provided training datasets and marker genes:
+(**b**) Run `NUWAms` with a customized co-expression network, which is built by function `buildNetwork` using user provided training datasets and marker genes:
 
 ```R
 my.network <- buildNetwork(trainsets = cptacDatasets, markers = my.markers)
@@ -46,12 +46,12 @@ cibersortPath = "<PATHTO>/CIBERSORT.R"
 res_deconv = NUWAdeconv(m.exp = res_nuwams$finalExpr, cibersortPath = cibersortPath)
 ```
 
-"res_deconv" includes matrices for immune cell fractions estimated by ` NUWAeDeconv`,  originial predictions and updated ones (with cell types merged)  by CIBERSORT-LM22, CIBERSORT-LM6 and EPIC-BCIC, respectively. 
+"res_deconv" includes matrices for immune cell fractions estimated by `NUWAeDeconv`,  originial predictions and updated ones (with cell types merged)  by CIBERSORT-LM22, CIBERSORT-LM6 and EPIC-BCIC, respectively. 
 
 
 ### 3) other deconvolution approaches
 
-Beside the ensemble deconvolution method `NUWAeDeconv`, the package also supports analysis using individual  algorithm (including EPIC, Cibersort, MCPcounter, xCell) using the built-in co-expression networks for markers of these interested algorithms.
+Beside the ensemble deconvolution method `NUWAeDeconv`, the package also supports analysis using individual algorithm (including EPIC, Cibersort, MCPcounter, xCell) using the built-in co-expression networks for markers of these interested algorithms.
 
 ```R
 # run NUWAms and EPIC
