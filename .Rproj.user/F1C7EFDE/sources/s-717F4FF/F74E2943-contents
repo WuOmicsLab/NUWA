@@ -1,0 +1,174 @@
+#' Boxplot of cell proportions for samples in different groups.
+#'
+#' Visualize the estimated immune cell proportions (from the
+#' output of NUWAeDeconv) for multiple groups of samples by boxplots.
+#'
+#' @param mat see the same argument of barplotCF.
+#' @param groupInfo see the same argument of barplotCF.
+#' @param groupCol a character vector specifying the colors of the different group.
+#' Default colors will be used if not provided.
+#' @param groupOrder a character vector specifying the order of the group.
+#' @param use.wilcoxon logical, if TRUE, two-sided Wilcoxon rank-sum
+#' tests will be used to assess significance of cell fractions difference
+#' between groups, if FALSE, two-sided t tests will be used. Default is TRUE.
+#' Ignored if there are three or more levels of groupInfo.
+#'
+#' @export
+#'
+#' @examples
+#' promat <- runif(10 * 7,min = 0, max = 1)
+#' promat <- matrix(promat, nrow = 10)
+#' rownames(promat) <- paste0("sample_", 1:10)
+#' colnames(promat) <- paste0("ct_", 1:7)
+#' promat <- promat / rowSums(promat)
+#' groupinfo <- sample(paste0('Group_', letters[1:3]), 10, replace = T)
+#' boxplotCF(promat, groupInfo = groupinfo)
+boxplotCF <- function(mat, groupInfo, groupCol=NULL, groupOrder = NULL,
+                      use.wilcoxon = T){
+
+
+    if (!is.matrix(mat)) {
+        stop("mat should be a matrix")
+    }
+    if(is.null(rownames(mat))|is.null(colnames(mat))) {
+        stop("rownames or colnames of 'mat' should not be null")
+    }
+
+    mat[mat<0|is.na(mat)] <- 0
+    res <- mat/rowSums(mat)
+
+    if(!(is.vector(groupInfo)|is.factor(groupInfo))){
+        stop("Parameter 'groupInfo' should be given as a vector or factor")
+    }
+
+    samids=rownames(res)
+    if(length(groupInfo)!=length(samids)){
+        stop("The length of 'groupInfo' should be the same with the number of samples included in CTdeconvRes")
+    }
+    if(!identical(names(groupInfo),NULL)){
+        if(any(duplicated(names(groupInfo)))){
+            stop("The names of groupInfo should be unique")
+        }
+        ind=match(names(groupInfo),samids)
+        if(any(is.na(ind))){
+            stop("The names of groupInfo should be the same with sample ids in CTdeconvRes")
+        }
+        groupInfo=groupInfo[match(samids,names(groupInfo))]
+    }
+
+    ##remove samples without groupinfo
+    res=res[!is.na(groupInfo),,drop=F]
+    groupInfo=groupInfo[!is.na(groupInfo)]
+    if (!is.null(groupOrder)) {
+        groupInfo <- factor(groupInfo, levels = groupOrder)
+    }
+
+    gtable=table(groupInfo)
+    if(min(gtable)<2){
+        stop("There should be at least 2 samples in each group")
+    }
+
+    groups=unique(groupInfo)
+
+    if(length(groups)<2){stop("There should be at least 2 groups in groupInfo")}
+    if(!identical(groupCol,NULL)){
+        if(length(groupCol)!=length(groups)){
+            # print()
+            stop("The number of color types in groupCol should be the same with the number of groups in groupInfo")
+        }
+    }else{
+        groupCol=rainbow(length(groups))
+    }
+    cts=colnames(res)
+    df=data.frame(groupInfo,res,check.names=FALSE)
+    df=reshape2::melt(df,id='groupInfo',variable.name = "CellType")
+
+
+    main = ""
+    ylab = "Fraction"
+    ylim=c(0,max(res) * 1.4)
+    las = 1
+    mar = c(5.1,4.1,2.1,9.1)
+    #offset = -1
+    xaxis.col = NULL
+    xaxis.text = NULL
+    cex.main = 1.5
+    cex.lab = 1.5
+    cex.axis = 1.5
+
+    num0 = ncol(res)
+    pos=1:((length(groups)+1)*num0)
+    pos=pos[-(1:num0)*(length(groups)+1)]
+    label0 = colnames(res)
+    pos0=seq(mean(1:length(groups)),by=length(groups)+1,length.out = num0)
+    col=rep(groupCol,times=num0)
+    opar=par(mar=mar)
+    y0=max(df$value, na.rm = T)+0.03
+    y1=y0+0.03
+
+    obj <- boxplot(value~groupInfo+CellType, df, at=pos,col=col,
+            cex.names=1, main = "", xlab='',ylab='',ylim=ylim,
+            outline=F, frame.plot = F,
+            las=2, xaxt='n', border = "black")
+    mtext(main,side=3,line=2,cex=cex.main)
+    mtext(ylab,side=2,line=2.5,cex=cex.lab)
+    axis(side=1,at=pos0,labels=NA)
+    legend.text=paste0(names(gtable),' (n=',gtable,')')
+    mylims <- par("usr")
+    # print(mylims)
+    legend(x=mylims[2]*1.03,y=mylims[4]/2,legend=legend.text,pch=22,pt.cex=2,cex=1,
+           pt.bg=groupCol,bty='n', xpd=T,xjust=0,yjust = 0.5)
+
+    ##
+    xaxis.col0 = c()
+    for(i in 1:length(cts)) {
+        # i=1
+        ct=cts[i]
+        df0=df[df$CellType==ct,]
+
+        if(!all(is.na(df0$value))) {
+            if(length(groups)==2){
+                if (use.wilcoxon) {
+                    sp=split(df0$value,f=df0$groupInfo)
+                    p0=wilcox.test(sp[[1]],sp[[2]])$p.value
+                } else {
+                    ## T-test
+                    sp=split(df0$value,f=df0$groupInfo)
+                    p0=t.test(sp[[1]],sp[[2]])$p.value
+                }
+            }else{
+                ## ANOVA
+                an=summary(aov(value~groupInfo,df0))[[1]]
+                p0=an$`Pr(>F)`[1]
+            }
+            p <- ifelse(p0>=0.01,format(p0,scientific=F,digits=2),
+                        format(p0,scientific=T,digits=2))
+            p.col=ifelse(p0<=0.05, '#d70419', 'black')
+        } else {
+            p0 = NA
+            p = ""
+            p.col = "white"
+        }
+
+        ## add pvalue and line
+        if(!all(is.na(df0$value))) {
+            text(x=pos0[i], y=y1*1.02, labels=p, font=3, cex=1, col=p.col, xpd=NA, adj = c(0.5,0))
+            # horiz
+            x0=pos0[i]-length(groups)/2
+            x1=pos0[i]+length(groups)/2
+            segments(x0=x0,y0=y1,x1=x1,y1=y1,col=1,lwd=1,lty=2,xpd=NA)
+            # vertical
+            segments(x0=x0,y0=y0,x1=x0,y1=y1,col=1,lwd=1,lty=2,xpd=NA)
+            segments(x0=x1,y0=y0,x1=x1,y1=y1,col=1,lwd=1,lty=2,xpd=NA)
+        }
+        xaxis.col0 <- c(xaxis.col0, p.col)
+    }
+
+    ##
+    ifelse(is.null(xaxis.col), xaxis.col <- xaxis.col0, xaxis.col)
+
+    ifelse(is.null(xaxis.text), xaxis.text <- label0, xaxis.text)
+    text(x=pos0,y=mylims[3],labels = xaxis.text, xpd=NA, srt = 45, adj = c(1,1.5), col = xaxis.col, cex=1.2)
+    par(opar)
+    obj1 <- obj
+}
