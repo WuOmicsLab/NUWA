@@ -14,13 +14,13 @@
 #' res_nuwa <- NUWA.xcell(expr = raw_expr, marker_list = NULL)
 #' res_nuwa <- NUWA.xcell(expr = raw_expr, marker_list = my_markers)
 NUWA.xcell <- function(expr, marker_list = NULL) {
-
+    library(xCell)
     if (!is.matrix(expr)) {
         stop("Parameter 'expr' should be a matrix")
     }
 
     if (is.null(marker_list)) {
-        marker_list = xCell.data$signatures
+        marker_list = xCell::xCell.data$signatures
         markers <- unlist(lapply(marker_list, function(x) x@geneIds))
     } else {
         markers <- unlist(marker_list)
@@ -30,8 +30,7 @@ NUWA.xcell <- function(expr, marker_list = NULL) {
     res <- NUWAms(expr, network = nw)
     expr_impute <- res$finalExpr
     predVsTruth <- res$predVsTruth
-    ref <- list(refProfiles = signature_matrix, sigGenes = rownames(signature_matrix))
     prop <- xCell::xCellAnalysis(expr_impute, signatures = marker_list,
                                  genes = rownames(expr_impute))
-    return(list(proportion = prop, mixture_impute = expr_impute, predVsTruth = predVsTruth))
+    return(list(proportion = t(prop), mixture_impute = expr_impute, predVsTruth = predVsTruth))
 }

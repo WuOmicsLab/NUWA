@@ -24,9 +24,7 @@ NUWA.mcpcounter <- function(expr, marker_list = NULL) {
     res <- NUWAms(expr, network = nw)
     expr_impute <- res$finalExpr
     predVsTruth <- res$predVsTruth
-    ref <- list(refProfiles = signature_matrix, sigGenes = rownames(signature_matrix))
-    prop <- MCPcounter::appendSignatures(expr_impute, signatures = marker_list,
-                                 genes = rownames(expr_impute))
+    prop <- MCPcounter::appendSignatures(expr_impute, markers = marker_list)
     return(list(proportion = prop, mixture_impute = expr_impute, predVsTruth = predVsTruth))
 }
 

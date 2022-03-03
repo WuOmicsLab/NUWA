@@ -22,8 +22,11 @@ NUWA.EPIC <- function(expr, signature_matrix) {
     nw <- buildNetwork(markers = rownames(signature_matrix))
     res <- NUWAms(expr, network = nw)
     expr_impute <- res$finalExpr
+    print(str(expr))
+    print(str(expr_impute))
+    print(str(res))
     predVsTruth <- res$predVsTruth
     ref <- list(refProfiles = signature_matrix, sigGenes = rownames(signature_matrix))
-    prop <- EPIC::EPIC(expr_impute, ref)
+    prop <- EPIC::EPIC(expr_impute, ref)$mRNAProportions
     return(list(proportion = prop, mixture_impute = expr_impute, predVsTruth = predVsTruth))
 }

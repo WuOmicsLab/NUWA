@@ -1,34 +1,6 @@
 
 
-simplifyModel <- function(mod) {
-    if(is.null(mod)) return(NULL)
-    cla <- class(mod)[1]
-    if(cla == "lm") {
-        coef <- coef(mod)
-        res <- list(class = cla, coef = coef)
-    } else if (cla == "cv.glmnet") {
-        coef <- coef(mod,s = c(mod$lambda.1se, mod$lambda.min))
-        res <- list(class = cla, coef = coef)
-    } else {
-        warning("Unrecognized model!")
-        res <- NULL
-    }
-}
 
-mypredict <- function(mod, x, lambda = c("lambda.1se", "lambda.min")[1]) {
-    cla <- mod$class
-    coef0 <- mod$coef
-    if(cla ==  "lm") {
-        x0 <- data.matrix(cbind(1, x[names(coef0)[-1]]))
-    } else if (cla == "cv.glmnet") {
-        library("Matrix")
-        x0 <- data.matrix(cbind(1, x[rownames(coef0)[-1]]))
-        coef0 <- if (lambda == "lambda.1se") coef0[, 1, drop = F] else coef0[, 2, drop = F]
-    }
-    res <- x0 %*% coef0
-    res <- res[, 1]
-    return(res)
-}
 # res <- markerInfer4(mat, preprocess = F, ncores = ncores)
 
 

@@ -38,6 +38,36 @@
 NUWAms <- function(expr, network = NULL, direction=c("both", "backward", "forward")[1],
                    lasso_step_cutoff=10, preprocess = T, ncores = 16,
                    lambda = c("lambda.1se", "lambda.min")[1]){
+    simplifyModel <- function(mod) {
+        if(is.null(mod)) return(NULL)
+        cla <- class(mod)[1]
+        if(cla == "lm") {
+            coef <- coef(mod)
+            res <- list(class = cla, coef = coef)
+        } else if (cla == "cv.glmnet") {
+            coef <- coef(mod,s = c(mod$lambda.1se, mod$lambda.min))
+            res <- list(class = cla, coef = coef)
+        } else {
+            warning("Unrecognized model!")
+            res <- NULL
+        }
+    }
+
+    mypredict <- function(mod, x, lambda = c("lambda.1se", "lambda.min")[1]) {
+        cla <- mod$class
+        coef0 <- mod$coef
+        if(cla ==  "lm") {
+            x0 <- data.matrix(cbind(1, x[names(coef0)[-1]]))
+        } else if (cla == "cv.glmnet") {
+            library("Matrix")
+            x0 <- data.matrix(cbind(1, x[rownames(coef0)[-1]]))
+            coef0 <- if (lambda == "lambda.1se") coef0[, 1, drop = F] else coef0[, 2, drop = F]
+        }
+        res <- x0 %*% coef0
+        res <- res[, 1]
+        return(res)
+    }
+
     # mar=Marker[,1]
     # set.seed(1001)
     prep=preprocess
@@ -48,7 +78,7 @@ NUWAms <- function(expr, network = NULL, direction=c("both", "backward", "forwar
     if (is.window) ncores <- 1 else ncores <- min(ncores, parallel::detectCores()-1)
     expr=data.matrix(expr)
     if(prep) {
-        cat("Data preprocessing -------------------------\n")
+        cat("Data preprocessing \n")
         expr=preprocess(expr, thre = 0)
         cat("Finished!\n\n")
     }
@@ -81,7 +111,7 @@ NUWAms <- function(expr, network = NULL, direction=c("both", "backward", "forwar
     t1 <- Sys.time(); print(t1 - t0)
 
     # part 1: constructing models.------------------------------
-    cat("Building regression models --------------------------\n")
+    cat("Building regression models\n")
     if (is.window) cl <- parallel::makePSOCKcluster(ncores) else cl <- parallel::makeForkCluster(ncores)
     # parallel::clusterSetRNGStream(cl, 2019)
     file <- paste0(getwd(),"/model_", ncol(expr), "_", ncores,".rda")
@@ -184,13 +214,14 @@ NUWAms <- function(expr, network = NULL, direction=c("both", "backward", "forwar
         # parallel::stopCluster(cl)
         # nn8=modls11[[1]][[4]][[2]][[2]][[2]][,1]
         # nn8[nn8!=0]
-        save(list=c('modls'),file = file)}
+        # save(list=c('modls'),file = file)
+    }
     t2 <- Sys.time(); print(t2 - t1)
     cat("Finished!\n\n")
     model_time <- difftime(t2, t0, units = "mins")
 
     ## part 2: filling ---------------------------------
-    cat("Inferring Markers ----------------------------\n")
+    cat("Inferring Markers \n")
     modls=lapply(modls,function(mls) {
         mls[sapply(mls,function(x) identical(x,NULL))]=NULL
         return(mls)})
@@ -237,7 +268,7 @@ NUWAms <- function(expr, network = NULL, direction=c("both", "backward", "forwar
     # save(file=filled.file, list = c("expr.fill.ls"))
 
     # Part 3. remove outliers for each sample -------------------
-    cat("Removing outliers ----------------------------\n")
+    cat("Removing outliers\n")
     expr.fill.ls <- lapply(
         expr.fill.ls,
         function(matr) {
@@ -256,18 +287,15 @@ NUWAms <- function(expr, network = NULL, direction=c("both", "backward", "forwar
         }
     )
     cat("Finished!\n\n")
-    print(str(expr.fill.ls))
     # part 3.2: integrate multiple outputs into one ----------------
     expr.fill=abind::abind(expr.fill.ls,along = 3)
     expr.fill=apply(expr.fill, c(1,2), mean,na.rm=T)
     expr.fill=expr.fill[!apply(is.na(expr.fill),1,all),, drop = F]
-    print(str(expr.fill))
-    print(str(expr))
 
 
     # part4. rescale by sample ----------------------
     if(rescale) {
-        cat("Rescaling -------------------------\n")
+        cat("Rescaling\n")
         genes0 <- intersect(rownames(expr.fill),rownames(expr))
         mat.pred <- expr.fill[genes0, ,drop=F]
         mat.truth <- expr[genes0, ,drop=F]
@@ -287,7 +315,7 @@ NUWAms <- function(expr, network = NULL, direction=c("both", "backward", "forwar
     }
 
     # part 5. expr.final integration-----------------------
-    cat("Integrating -----------------------\n")
+    cat("Integrating\n")
     getValueFromMat=function(matrix,rowname,colname){
         if(rowname %in% rownames(matrix) & colname %in% colnames(matrix)){
             return(matrix[rowname,colname])
@@ -310,13 +338,11 @@ NUWAms <- function(expr, network = NULL, direction=c("both", "backward", "forwar
         })
     })
     expr.final=expr.final[!apply(is.na(expr.final),1,all),, drop = F]
-    # print(str(expr.final))
     cat("Finished!\n\n")
 
 
     # part 6. pred vs truth-----------------------------
     gene.common=intersect(rownames(expr.fill),rownames(expr))
-    # print(str(gene.common))
     truth.pred=list(truth=expr[gene.common,, drop = F],pred=expr.fill[gene.common,, drop = F])
     t4 <- Sys.time(); print(t4 - t3)
     cat("total:"); print(t4-t0)

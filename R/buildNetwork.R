@@ -94,7 +94,7 @@ buildNetwork <- function(trainsets = NULL, markers = NULL, prep = F,
         exp <- trainsets[[I]]
         if (prep) {
             batchInfo0 <- batchInfoList[[I]]
-            exp <- preprocess(exprMat = exp, batchInfo = batchInfo0)
+            exp <- preprocess(expr = exp, batchInfo = batchInfo0)
         }
         # matrix-level rescale the value to 0~1
         exp <- global.scale(exp)$y

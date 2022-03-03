@@ -43,7 +43,7 @@ res_nuwams = NUWAms(expr = nuwa_raw_expr, network = my.network)
 ```R
 # Provide the file path to CIBERSORT R source code
 cibersortPath = "<PATHTO>/CIBERSORT.R"
-res_deconv = NUWAdeconv(m.exp = res_nuwams$finalExpr, cibersortPath = cibersortPath)
+res_deconv = NUWAedeconv(m.exp = res_nuwams$finalExpr, cibersortPath = cibersortPath)
 ```
 
 "res_deconv" includes matrices for immune cell fractions estimated by `NUWAeDeconv`,  originial predictions and updated ones (with cell types merged)  by CIBERSORT-LM22, CIBERSORT-LM6 and EPIC-BCIC, respectively. 
@@ -55,10 +55,10 @@ Beside the ensemble deconvolution method `NUWAeDeconv`, the package also supp
 
 ```R
 # run NUWAms and EPIC
-res_nuwa <- NUWA.EPIC.BCIC(expr = raw_expr, protein = TRUE)
+res_nuwa <- NUWA.EPIC(expr = raw_expr, signature_matrix = BCIC)
 
 # run NUWAms and xCell algorithm
-res_nuwa <- NUWA.xcell.64(expr = raw_expr)
+res_nuwa <- NUWA.xcell(expr = raw_expr)
 
 # run NUWAms and MCPcounter algorithm
 res_nuwa <- NUWA.mcpcounter(expr = raw_expr)

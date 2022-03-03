@@ -168,7 +168,7 @@ boxplotCF <- function(mat, groupInfo, groupCol=NULL, groupOrder = NULL,
     ifelse(is.null(xaxis.col), xaxis.col <- xaxis.col0, xaxis.col)
 
     ifelse(is.null(xaxis.text), xaxis.text <- label0, xaxis.text)
-    text(x=pos0,y=mylims[3],labels = xaxis.text, xpd=NA, srt = 45, adj = c(1,1.5), col = xaxis.col, cex=1.2)
+    text(x=pos0,y=mylims[3],labels = xaxis.text, xpd=NA, srt = 45, adj = c(1,1.5), col = "black", cex=1.2)
     par(opar)
     obj1 <- obj
 }

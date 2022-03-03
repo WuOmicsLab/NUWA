@@ -87,7 +87,7 @@ NUWAeDeconv <- function(m.exp, cibersortPath, BCIC_min_marker_num = 6,
     if (listmode) {
         use <- sapply(combs, function(x) x %in% names(mixls))
     } else {
-        siggsls <- list(siggs, rownames(lm6), rownames(lm22))
+        siggsls <- list(siggs, rownames(LM6), rownames(LM22))
         names(siggsls) <- combs
         gs_mix <- rownames(mix)
         mar_num <- c(BCIC_min_marker_num,
@@ -110,10 +110,10 @@ NUWAeDeconv <- function(m.exp, cibersortPath, BCIC_min_marker_num = 6,
     epicRes <- if (excluEpic) NULL else epicRes0[["mRNAProportions"]]
     qn <- !RNAseq
     if (listmode) mix <- mixls[["cibersort_lm6"]]
-    cib_lm6_res <- tryCatch(CIBERSORT(lm6, mix, QN = qn),
+    cib_lm6_res <- tryCatch(CIBERSORT(LM6, mix, QN = qn),
                             error = function(e) NULL)
     if (listmode) mix <- mixls[["cibersort_lm22"]]
-    cib_lm22_res <- tryCatch(CIBERSORT(lm22, mix, QN = qn),
+    cib_lm22_res <- tryCatch(CIBERSORT(LM22, mix, QN = qn),
                              error = function(e) NULL)
     resls <- list(epicRes, cib_lm6_res, cib_lm22_res)
     isNull <- sapply(resls, function(x) identical(x, NULL))

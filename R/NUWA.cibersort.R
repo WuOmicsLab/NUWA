@@ -19,9 +19,9 @@
 #' @export
 #'
 #' @examples
-#' res_nuwa <- NUWAms.cibersort(expr = raw_expr, cibersortPath= NULL, signature_matrix = LM22)
-#' res_nuwa <- NUWAms.cibersort(expr = raw_expr, cibersortPath= NULL, signature_matrix = LM6)
-#' res_nuwa <- NUWAms.cibersort(expr = raw_expr, cibersortPath= NULL, signature_matrix = my_signature_matrix)
+#' res_nuwa <- NUWAms.cibersort(expr = raw_expr, cibersortPath= ciberR, signature_matrix = LM22)
+#' res_nuwa <- NUWAms.cibersort(expr = raw_expr, cibersortPath= ciberR, signature_matrix = LM6)
+#' res_nuwa <- NUWAms.cibersort(expr = raw_expr, cibersortPath= ciberR, signature_matrix = my_signature_matrix)
 NUWA.cibersort <- function(expr, signature_matrix, cibersortPath) {
 
     impute <- T

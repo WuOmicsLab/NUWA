@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1644846804818.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "AC5C1EE2",
+    "lastKnownWriteTime" : 1646269773,
+    "last_content_update" : 1646269773077,
+    "path" : "D:/Users/xiergo/Desktop/NUWA/R/myfun.R",
+    "project_path" : "R/myfun.R",
+    "properties" : {
+        "cursorPosition" : "16,31",
+        "scrollLine" : "1"
+    },
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
