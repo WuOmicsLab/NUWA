@@ -14,7 +14,11 @@
 #' res_nuwa <- NUWA.xcell(expr = raw_expr, marker_list = NULL)
 #' res_nuwa <- NUWA.xcell(expr = raw_expr, marker_list = my_markers)
 NUWA.xcell <- function(expr, marker_list = NULL) {
-    library(xCell)
+    if(!require("xCell", quietly = TRUE)) {
+        remotes::install_github('dviraran/xCell')
+    } else {
+        require(xCell)
+    }
     if (!is.matrix(expr)) {
         stop("Parameter 'expr' should be a matrix")
     }

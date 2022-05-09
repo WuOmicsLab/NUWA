@@ -1,10 +1,4 @@
 
-
-
-# res <- markerInfer4(mat, preprocess = F, ncores = ncores)
-
-
-
 completeness.ccb2 <- function(m, threshold = 50, nsams = 10, use.sams = F) {
     # debug.message(paste("Before completeness:", nrow(df),"rows,", ncol(df), "columns"))
     if (use.sams) {
@@ -736,8 +730,4 @@ CIBERSORT <- function(sig_matrix, mixture_file, perm=0, QN=TRUE, absolute=FALSE,
     rownames(obj) <- colnames(Y)
     obj
 }
-
-
-
-
 

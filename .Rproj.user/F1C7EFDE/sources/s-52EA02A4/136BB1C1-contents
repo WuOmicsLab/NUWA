@@ -22,7 +22,6 @@ Imports:
     reshape2,
     ggplot2,
     glmnet,
-    xCell,
     MCPcounter
 Suggests:
     knitr,
@@ -32,6 +31,5 @@ Suggests:
 VignetteBuilder: knitr
 Remotes:
     GfellerLab/EPIC,
-    dviraran/xCell,
     ebecht/MCPcounter
     

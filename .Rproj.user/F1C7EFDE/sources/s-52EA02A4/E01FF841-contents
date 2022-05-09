@@ -1,0 +1,18 @@
+ntimes=5000
+p=0.7
+par(mfrow = c(1, 3))
+for (n in c(1, 10, 200)) {
+    disps <- c()
+    for (i in seq(ntimes)) { # repeat 5000 times
+        steps <- sample(c(1,-1), n, replace = T, prob = c(p, 1-p)) # sample for n steps
+        disp <- sum(steps) # add all steps
+        disps <- c(disps, disp) # save result of each trial in a vector
+    }
+    mu <- round(mean(disps), 2) # compute mean
+    vari <- round(var(disps), 2) # compute variance
+    hist(disps, main = paste0("n = ", n), xlab = "Final displacements (* L)",
+         col = "gray") # histogram
+    coors <- par('usr')
+    text(x = coors[1], y = coors[4], pos = 4, xpd = T,
+         labels = paste0("mu = ", mu, "\nvar = ", vari)) # add mean and variance to plots
+}
