@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1652256458205.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3743690713",
+    "id" : "3080A9A7",
+    "lastKnownWriteTime" : 1652327159,
+    "last_content_update" : 1652327159120,
+    "path" : "D:/Users/xiergo/Desktop/NUWA/R/recall.plot.R",
+    "project_path" : "R/recall.plot.R",
+    "properties" : {
+        "cursorPosition" : "134,6",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 12,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

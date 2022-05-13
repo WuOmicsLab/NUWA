@@ -16,13 +16,13 @@ used. One of "pearson" or "spearman" (default).}
 A list: \describe{
  \item{\code{recallTable}}{a data frame recording the recall values of each marker and each sample.}
  \item{\code{simNull}}{a list of length 2, consisting two correlation matrices which were used to generate null distributions of similarity (SIMnull) at marker and sample level, respectively. See the Methods section of the NUWA manuscript for more detail.}
- \item{\code{corMethod}}{a character, the type of correlation method.}
+ \item{\code{corMethod}}{a character, the type of correlation method used.}
  }
 }
 \description{
 This function computes recall value for each marker and sample based
-on the inference results of  NUWAms function. Recall of a marker was
-determined as the fraction of a null distribution of similarity less
+on the inference results of  NUWAms function or NUWA built-in analysis functions.
+Recall of a marker was determined as the fraction of a null distribution of similarity less
 than the observed similarity (Spearman rank correlation) between the
 inferred and measured abundances of this marker in all samples of a
 given dataset. Recall of a sample was performed in a similar way.

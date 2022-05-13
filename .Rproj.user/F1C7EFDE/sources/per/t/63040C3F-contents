@@ -11,8 +11,9 @@
 #' @export
 #'
 #' @examples
-#' res_nuwa <- NUWA.xcell(expr = raw_expr, marker_list = NULL)
-#' res_nuwa <- NUWA.xcell(expr = raw_expr, marker_list = my_markers)
+#' expr <- cptacDatasets$brca[, 1:5]
+#' res_nuwa <- NUWA.xcell(expr, marker_list = NULL)
+#' res_nuwa <- NUWA.xcell(expr, marker_list = my_markers)
 NUWA.xcell <- function(expr, marker_list = NULL) {
     if(!require("xCell", quietly = TRUE)) {
         remotes::install_github('dviraran/xCell')

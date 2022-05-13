@@ -7,28 +7,21 @@
 NUWA.cibersort(expr, signature_matrix, cibersortPath)
 }
 \arguments{
-\item{expr}{a numeric matrix or data frame of expression profiles for
-bulk tissue samples, with HUGO gene symbols as rownames and sample
-identifiers as colnames. It can also be a string specifing the file
-path of an expression matrix. Data must be non-logarithm scale.}
+\item{expr}{a numeric matrix of expression profiles for bulk tissue samples, with HUGO gene symbols as rownames and sample identifiers as colnames. Data must be non-logarithm scale.}
 
-\item{signature_matrix}{a signature matrix (such as lm22, lm6, BCIC, TIC).}
+\item{signature_matrix}{a signature matrix, which is a numeric expression matrix of markers in interested cell types, with HUGO gene symbols as rownames and cell type identifiers as colnames. Such as LM22, LM6, BCIC, TIC or user provided signature matrix.}
 
-\item{cibersortPath}{a string specifying the path of CIBERSORT R script,
-CIBERSORT is only freely available for academic users, please register
-on https://cibersort.stanford.edu, and download the CIBERSORT source script.}
+\item{cibersortPath}{a string specifying the path of CIBERSORT R script, CIBERSORT is only freely available for academic users, please register on https://cibersort.stanford.edu, and download the CIBERSORT source script.}
 }
 \value{
-The results of each built-in NUWA analysis function, is a list
-containing an expression matrix with missing markers inferred,
-two matrices using for compute recall, and a matrix including cell
-fractions estimated by the algorithm used.
+The results of each built-in NUWA analysis function, is a list containing an expression matrix with missing markers inferred, two matrices used for recall analysis, and a matrix including cell fractions estimated by the algorithm used.
 }
 \description{
-run NUWAms and CIBERSORT algorithm with interested signature matrix.
+Run NUWAms (missing markers inference) and CIBERSORT algorithm (deconvolution) with interested signature matrix.
 }
 \examples{
-res_nuwa <- NUWAms.cibersort(expr = raw_expr, cibersortPath= ciberR, signature_matrix = LM22)
-res_nuwa <- NUWAms.cibersort(expr = raw_expr, cibersortPath= ciberR, signature_matrix = LM6)
-res_nuwa <- NUWAms.cibersort(expr = raw_expr, cibersortPath= ciberR, signature_matrix = my_signature_matrix)
+expr <- cptacDatasets$brca[, 1:5]
+res_nuwa <- NUWA.cibersort(expr, cibersortPath = cibersortPath, signature_matrix = LM22)
+res_nuwa <- NUWA.cibersort(expr, cibersortPath = cibersortPath, signature_matrix = NUWAp26)
+res_nuwa <- NUWA.cibersort(expr, cibersortPath = cibersortPath, signature_matrix = my_signature_matrix)
 }

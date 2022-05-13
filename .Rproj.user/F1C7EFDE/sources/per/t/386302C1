@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1652363533242.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3201886422",
+    "id" : "386302C1",
+    "lastKnownWriteTime" : 1652363576,
+    "last_content_update" : 1652363576127,
+    "path" : "D:/Users/xiergo/Desktop/NUWA/R/test.R",
+    "project_path" : "R/test.R",
+    "properties" : {
+        "cursorPosition" : "2,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 17,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

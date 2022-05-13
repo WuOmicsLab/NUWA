@@ -7,7 +7,7 @@
 buildNetwork(
   trainsets = NULL,
   markers = NULL,
-  prep = F,
+  preprocess = T,
   batchInfoList = NULL,
   nTr = 2,
   corCutoff = 0.3,
@@ -15,40 +15,23 @@ buildNetwork(
 )
 }
 \arguments{
-\item{trainsets}{a list containing the datasets used to build the network and
-train regression models later. Each dataset of the list should be an numeric
-expression matrix with HUGO gene symbols as rownames and sample identifiers
-as colnames. Data should be non-logarithm scale. Default is NULL, then a list
-including proteomic expression matrices of the six CPTAC datasets
-(BRCA, CCRCC, COAD, EC, GC and LUAD) will be used.}
+\item{trainsets}{a list containing the datasets used to build the network and train regression models later. Each dataset of the list should be a numeric expression matrix with HUGO gene symbols as rownames and sample identifiers as colnames. Data should be non-logarithm scale. Default is NULL, then a list including proteomic expression matrices of the six CPTAC datasets (S025, S029, S037/S045, S043, S044/S050 and S046/S056) will be used.}
 
-\item{markers}{interesting markers: a character vector of markers, which are
-the candidate cores of the network. If NULL (default), the union of markers
-from signature matrices "LM6", "LM22"and "BCIC" will be used.}
+\item{markers}{a character vector of interesting markers, which are the candidate cores of the network. If NULL (default), the union of markers from public signature matrices "LM6", "LM22"and "BCIC" will be used.}
 
-\item{batchInfoList}{a list containing the batch information corresponding
-to the training datasets. the batchInfoList should be named using the names
-of trainsets, or the length of batchInfoList should be equal to the number of
-trainsets. Each element in the list gives the batch information of one trainset,
-which is a vector named by the sample identifiers of that trainset.}
+\item{preprocess}{logical. If TURE, each matrix in "trainsets" is preprocessed before network building. Default is TRUE. See the Methods section of the NUWA manuscript for more details.}
 
-\item{nTr}{a positive integer, we only build network for markers existing
-in greater than or equal to nTr training datasets. Default is 3.}
+\item{batchInfoList}{a list containing the batch information corresponding to the training datasets. The batchInfoList should be named using the names of trainsets, or the length of batchInfoList should be equal to the number of trainsets. Each element in the list gives the batch information of one trainset, which is a vector named by the sample identifiers of that trainset.}
 
-\item{corCutoff}{a positive numeric, specifying the absolute Pearson
-correlation coeffienct threshould above which a co-expression will be
-declared between individual marker and other quantified protein. For
-each marker, we identify its "coherently correlated proteins", i.e.
-proteins with the same correlation coeffienct sign in all training
-datasets, and with significant correlation (P < 0.05, absolute value
-of Pearson correlation coeffienct greater than corCutoff) in at least
-two trainign datasets. Default is 0.3.}
+\item{nTr}{a positive integer, we only build network for markers existing in greater than or equal to "nTr" training datasets. Default is 3.}
+
+\item{corCutoff}{a positive numeric, specifying the absolute Pearson correlation coefficient threshold above which a co-expression will be declared between individual marker and other quantified protein. For each marker, we identify its “coherently correlated proteins”, i.e., proteins with the same correlation coefficient sign in all training datasets, and with significant correlation (P < 0.05, absolute value of Pearson correlation coefficient greater than "corCutoff") in at least two training datasets. Default is 0.3.}
 }
 \value{
 A list containing:\describe{
- \item{\code{corr}}{a numeric data frame of Pearson correlation coeffienct between markers and other proteins.}
- \item{\code{markers}}{a character vector, the markers with co-expression networks.}
- \item{\code{trainScaled}}{A list containing the preprocessed training datasets.}
+ \item{\code{corr}}{a numeric data frame of Pearson correlation coefficients between markers and other proteins.}
+ \item{\code{markers}}{a character vector, containing the markers with co-expression networks.}
+ \item{\code{trainScaled}}{a list containing the preprocessed training datasets.}
  }
 }
 \description{

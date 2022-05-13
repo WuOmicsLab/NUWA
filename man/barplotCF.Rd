@@ -2,28 +2,19 @@
 % Please edit documentation in R/barplotCF.R
 \name{barplotCF}
 \alias{barplotCF}
-\title{Stacked barplot of cell proportions for samples in different groups.}
+\title{Stacked barplot of cell fractions for samples in different groups.}
 \usage{
 barplotCF(mat, groupInfo = NULL, ctCol = NULL)
 }
 \arguments{
-\item{mat}{a numeric matrix of cell proportions for
-bulk samples, with sample identifiers as rownames and cell type
-names as colnames.}
+\item{mat}{a numeric matrix of cell fractions for bulk samples, with sample identifiers as rownames and cell type names as colnames.}
 
-\item{groupInfo}{a vector or factor giving the group names for samples in
-'\code{mat}'. The order of 'groupInfo' should be same as the sample order
-in '\code{mat}' unless it was named by the sample identifiers. You can
-designate the bar orders of groups by setting "groupInfo" to factor format.
-Missing values (NA) will be removed before plotting.}
+\item{groupInfo}{a vector or factor giving the group names for samples in "\code{mat}". The order of "\code{groupInfo}" should be same as the sample order in "\code{mat}" unless it was named by the sample identifiers. You can designate the bar orders of groups by setting "\code{groupInfo}" to factor format following your interested order. Missing values (NA) will be removed before plotting.}
 
-\item{ctCol}{a character vector specifying the colors of the different immune
-cell types, which should be given in the order of the rownames of '\code{mat}'.
-Default colors will be used if not provided.}
+\item{ctCol}{a character vector specifying the colors of the different cell types, which should be given in the order of the colnames of "\code{mat}". Default colors will be used if not provided.}
 }
 \description{
-Visualize the estimated immune cell proportions (from the output of
-NUWAeDeconv) for multiple groups of samples by a stacked bar chart.
+Visualize the estimated cell fractions for multiple groups of samples by a stacked bar chart.
 }
 \examples{
 promat <- runif(10 * 7,min = 0, max = 1)

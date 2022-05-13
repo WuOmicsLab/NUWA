@@ -24,7 +24,7 @@ and the number of comparison are indicated.}
 ggplot object
 }
 \description{
-This function outputs a density plot and a scatterpoints plot to
+This function outputs a density plot and a scatter points plot to
 visualize NUWA-ms accuracy by evaluating similarity between observed
 and inferred abundances for markers with quantification in the
 inferred dataset.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/NUWAms.R
 \name{NUWAms}
 \alias{NUWAms}
-\title{Infer proteome expression abundance for missing immune markers.}
+\title{Infer proteomic expression abundance for missing immune markers, note that union of markers from public signature matrices "LM6", "LM22"and "BCIC" will be used.}
 \usage{
 NUWAms(
   expr,
@@ -15,46 +15,32 @@ NUWAms(
 )
 }
 \arguments{
-\item{expr}{a numeric matrix or data frame of proteome expression profiles for
-bulk samples, with HUGO gene symbols as rownames and sample identifiers as colnames.}
+\item{expr}{a numeric matrix of expression profiles for bulk tissue samples, with HUGO gene symbols as rownames and sample identifiers as colnames.}
 
-\item{network}{a list, consisting of the co-expression networks built by function
-\code{buildNetwork()}. Default is NULL, then the bulit-in networks using six CPTAC
-datasets (BRCA, CCRCC, COAD, EC, GC and LUAD) for individual marker from LM22, LM6
-and BCIC signatures will be used. NULL is required when NUWAeDeconv function will
-be used followingly.}
+\item{network}{a list, consisting of the co-expression networks built by function buildNetwork(). Default is NULL, then the built-in networks using six CPTAC datasets (S025, S029, S037/S045, S043, S044/S050 and S046/S056) for individual marker from LM22, LM6 and BCIC signatures will be used. NULL is required when NUWAeDeconv function will be used followingly.}
 
-\item{direction}{a character, indicating the mode used for feature searching in
-stepwise regression analysis, one of "both", "backward" or "forward". Default is "both".}
+\item{direction}{a character, indicating the mode used for feature searching in stepwise regression analysis, one of "both", "backward" or "forward". Default is "both".}
 
-\item{lasso_step_cutoff}{a positive integer, specifying the minimal number of variables
-needed to run LASSO regression analysis. If the number is less than "lasso_step_cutoff",
-stepwise regression models will be constructed. Default is 10.}
+\item{lasso_step_cutoff}{a positive integer, specifying the minimal number of variables needed to run LASSO regression analysis. If the number is less than "lasso_step_cutoff", stepwise regression models will be constructed. Default is 10.}
 
-\item{preprocess}{logical. If TURE, expression data is preprocessed before markers inferring.
-Default is TRUE. See the Methods section of the NUWA manuscript for more details.}
+\item{preprocess}{logical. If TURE, expression data is preprocessed before markers inferring. Default is TRUE. See the Methods section of the NUWA manuscript for more details.}
 
-\item{ncores}{a positive integer, indicating the number of cores used by this function.
-If the operating system is windows, then only one core will be used.}
+\item{ncores}{a positive integer, indicating the number of cores used by this function. If the operating system is windows, then only one core will be used.}
 
-\item{lambda}{a character, indicating which value of lambda will be used in the LASSO
-analysis. One of "lambda.min" or "lambda.1se". "lambda.min" gives lambda with minimal
-cross-validation errors, and "lambda.1se" gives the largest value of lambda such that
-the error is within 1 standard error of the minimal. Default is "lambda.1se".}
+\item{lambda}{a character, indicating which value of lambda will be used in the LASSO analysis. One of "lambda.min" or "lambda.1se". "lambda.min" gives lambda with minimal cross-validation errors, and "lambda.1se" gives the largest value of lambda such that the error is within 1 standard error of the minimal. Default is "lambda.1se".}
 }
 \value{
 A list:\describe{
  \item{\code{finalExpr}}{a numeric matrix, the final full dataset of expression with missing markers are inferred.}
  \item{\code{predVsTruth}}{a list with elements comprising the prediction and truth expression matrices of quantified markers, which will be used for the following recall analysis.}
- \item{\code{inferrenceMat}}{a numeric matrix, a subset of the full dataset "finalExpr", a expression matrix only including markers inferred by NUWAms() function.}
+ \item{\code{inferenceMat}}{a numeric matrix, a subset of the full dataset "finalExpr", a expression matrix only including markers inferred by NUWAms() function.}
  \item{\code{runtime}}{a data frame, consisting running time (minutes) used for model building, markers inferring and total time.}
 }
 }
 \description{
-This function is to infer the abundance of missing cell markers using
-the given co-expression networks of individual marker. It may take a few minutes,
-if more than 50 samples were included in the analysis.
+This function is to infer the abundance of missing cell markers using the given co-expression networks of individual marker. It may take a few minutes, if more than 50 samples were included in the analysis.
 }
 \examples{
+expr <- cptacDatasets$brca[, 1:5]
 res <- NUWAms(expr)
 }

@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1652256176254.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2750976906",
+    "id" : "6A8428D5",
+    "lastKnownWriteTime" : 1652256444,
+    "last_content_update" : 1652256444835,
+    "path" : "D:/Users/xiergo/Desktop/NUWA/R/recall.R",
+    "project_path" : "R/recall.R",
+    "properties" : {
+        "cursorPosition" : "107,18",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 11,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
