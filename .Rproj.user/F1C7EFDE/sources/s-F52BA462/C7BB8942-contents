@@ -29,5 +29,5 @@ NUWA.EPIC <- function(expr, signature_matrix) {
     predVsTruth <- res$predVsTruth
     ref <- list(refProfiles = signature_matrix, sigGenes = rownames(signature_matrix))
     prop <- EPIC::EPIC(expr_impute, ref)$mRNAProportions
-    return(list(proportion = prop, mixture_impute = expr_impute, predVsTruth = predVsTruth))
+    return(list(proportion = prop, finalExpr = expr_impute, predVsTruth = predVsTruth))
 }
