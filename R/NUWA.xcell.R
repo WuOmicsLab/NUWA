@@ -1,6 +1,6 @@
-#' Built-in NUWA analysis
+#' A portal function running xCell after NUWAms analysis.
 #'
-#' run NUWAms and xCell algorithm with interested marker list.
+#' Run NUWAms and xCell algorithm with a marker list of interest.
 #'
 #' @param expr see the same argument of NUWA.cibersort.
 #' @param marker_list a list, whose names are cellular populations' names

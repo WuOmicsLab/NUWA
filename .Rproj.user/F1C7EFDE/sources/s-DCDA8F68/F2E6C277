@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1652368636480.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "F2E6C277",
+    "lastKnownWriteTime" : 1652364944,
+    "last_content_update" : 1652364944,
+    "path" : "D:/Users/xiergo/Desktop/check_cibersort.R",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "64,34",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -9,7 +9,7 @@ barplotCF(mat, groupInfo = NULL, ctCol = NULL)
 \arguments{
 \item{mat}{a numeric matrix of cell fractions for bulk samples, with sample identifiers as rownames and cell type names as colnames.}
 
-\item{groupInfo}{a vector or factor giving the group names for samples in "\code{mat}". The order of "\code{groupInfo}" should be same as the sample order in "\code{mat}" unless it was named by the sample identifiers. You can designate the bar orders of groups by setting "\code{groupInfo}" to factor format following your interested order. Missing values (NA) will be removed before plotting.}
+\item{groupInfo}{a vector or factor giving the group names for samples in "\code{mat}". The order of "\code{groupInfo}" should be same as the sample order in "\code{mat}" unless it was named by the sample identifiers. You can designate the bar orders of groups by setting "\code{groupInfo}" to factor format following your order of interest. Missing values (NA) will be removed before plotting.}
 
 \item{ctCol}{a character vector specifying the colors of the different cell types, which should be given in the order of the colnames of "\code{mat}". Default colors will be used if not provided.}
 }

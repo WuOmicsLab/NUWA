@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1652437145778.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "3AA2F93D",
+    "lastKnownWriteTime" : 1652681903,
+    "last_content_update" : 1652681903115,
+    "path" : "D:/Users/xiergo/Desktop/NUWA/R/boxplotCF.R",
+    "project_path" : "R/boxplotCF.R",
+    "properties" : {
+        "cursorPosition" : "91,13",
+        "scrollLine" : "83",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 12,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

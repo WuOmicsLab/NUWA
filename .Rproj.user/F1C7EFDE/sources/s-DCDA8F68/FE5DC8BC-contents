@@ -1,0 +1,56 @@
+
+#' Built-in NUWA analysis
+#'
+#' Run NUWAms (missing markers inference) and CIBERSORT algorithm (deconvolution) with interested signature matrix.
+#'
+#' @param expr a numeric matrix of expression profiles for bulk tissue samples, with HUGO gene symbols as rownames and sample identifiers as colnames. Data must be non-logarithm scale.
+#' @param cibersortPath a string specifying the path of CIBERSORT R script, CIBERSORT is only freely available for academic users, please register on https://cibersort.stanford.edu, and download the CIBERSORT source script.
+#' @param signature_matrix a signature matrix, which is a numeric expression matrix of markers in interested cell types, with HUGO gene symbols as rownames and cell type identifiers as colnames. Such as LM22, LM6, BCIC, TIC or user provided signature matrix.
+#'
+#' @return The results of each built-in NUWA analysis function, is a list containing an expression matrix with missing markers inferred, two matrices used for recall analysis, and a matrix including cell fractions estimated by the algorithm used.
+#' @export
+#'
+#' @examples
+#' expr <- cptacDatasets$brca[, 1:5]
+#' res_nuwa <- NUWA.cibersort(expr, cibersortPath = cibersortPath, signature_matrix = LM22)
+#' res_nuwa <- NUWA.cibersort(expr, cibersortPath = cibersortPath, signature_matrix = NUWAp26)
+#' res_nuwa <- NUWA.cibersort(expr, cibersortPath = cibersortPath, signature_matrix = my_signature_matrix)
+NUWA.cibersort <- function(expr, signature_matrix, cibersortPath) {
+    if (!check_cibersort(cibersortPath)){
+        stop("Invalid cibersort path. Please download script from cibersort website (https://cibersort.stanford.edu).")
+    }
+    impute <- T
+    buildNetworkArgs <- list()
+    nuwamsArgs <- list()
+    if (! is.matrix(expr)) {
+        stop("'expr' should be a matrix")
+    }
+    mix <- expr
+
+    if (!is.matrix(signature_matrix)) {
+        stop("Parameter signature_matrix should be given as matrix.")
+    }
+    if (!file.exists(cibersortPath)) {
+        stop("Could not find file ", cibersortPath)
+    }
+    if (impute) {
+
+        buildNetworkArgs0 <- list(markers = rownames(signature_matrix))
+        buildNetworkArgs0 <- modifyList(buildNetworkArgs0, buildNetworkArgs)
+        nw <- do.call(buildNetwork, buildNetworkArgs0)
+
+        nuwamsArgs0 <- list(expr = mix, network = nw)
+        nuwamsArgs0 <- modifyList(nuwamsArgs0, nuwamsArgs)
+        mix0 <- mix
+        res <- do.call(NUWAms, nuwamsArgs0)
+        mix <- res$finalExpr
+        predVsTruth <- res$predVsTruth
+        # save(signature_matrix, mix0, mix, nw, file = "/home/pub/project/deconvolution/tcga/cptac_test/nuwa_package_development/res_xiergo_new.rda")
+    }
+    prop <- CIBERSORT(signature_matrix, mix, QN = T)
+    if (!impute) {
+        mix <- NULL
+        predVsTruth <- NULL
+    }
+    return(list(proportion = prop, finalExpr = mix, predVsTruth = predVsTruth))
+}

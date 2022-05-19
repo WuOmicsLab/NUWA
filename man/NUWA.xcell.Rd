@@ -2,7 +2,7 @@
 % Please edit documentation in R/NUWA.xcell.R
 \name{NUWA.xcell}
 \alias{NUWA.xcell}
-\title{Built-in NUWA analysis}
+\title{A portal function running xCell after NUWAms analysis.}
 \usage{
 NUWA.xcell(expr, marker_list = NULL)
 }
@@ -17,7 +17,7 @@ xCell64.}
 see NUWA.cibersort.
 }
 \description{
-run NUWAms and xCell algorithm with interested marker list.
+Run NUWAms and xCell algorithm with a marker list of interest.
 }
 \examples{
 expr <- cptacDatasets$brca[, 1:5]

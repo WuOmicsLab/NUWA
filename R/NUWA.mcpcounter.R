@@ -1,6 +1,6 @@
-#' Built-in NUWA analysis
+#' A portal function running CIBERSORT after NUWAms analysis.
 #'
-#' run NUWAms and MCPcounter algorithm with interested marker list.
+#' Run NUWAms and MCPcounter algorithm with a marker list of interest.
 #'
 #' @param expr see the same argument in NUWA.cibersort.
 #' @param marker_list see the same argument in NUWA.xcell, default is MCPcounter markers.

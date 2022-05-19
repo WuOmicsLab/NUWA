@@ -3,7 +3,7 @@
 #' Visualize the estimated cell fractions for multiple groups of samples by a stacked bar chart.
 #'
 #' @param mat a numeric matrix of cell fractions for bulk samples, with sample identifiers as rownames and cell type names as colnames.
-#' @param groupInfo a vector or factor giving the group names for samples in "\code{mat}". The order of "\code{groupInfo}" should be same as the sample order in "\code{mat}" unless it was named by the sample identifiers. You can designate the bar orders of groups by setting "\code{groupInfo}" to factor format following your interested order. Missing values (NA) will be removed before plotting.
+#' @param groupInfo a vector or factor giving the group names for samples in "\code{mat}". The order of "\code{groupInfo}" should be same as the sample order in "\code{mat}" unless it was named by the sample identifiers. You can designate the bar orders of groups by setting "\code{groupInfo}" to factor format following your order of interest. Missing values (NA) will be removed before plotting.
 #' @param ctCol a character vector specifying the colors of the different cell types, which should be given in the order of the colnames of "\code{mat}". Default colors will be used if not provided.
 #' @export
 #'
@@ -23,12 +23,27 @@ barplotCF <- function(mat, groupInfo = NULL, ctCol = NULL) {
         stop("rownames or colnames of 'mat' should not be null")
     }
 
-    if(any(mat < 0 | is.na(mat))){
-        warning('Automatically remove samples with NAs or minus numbers!')
-        mat <- mat[rowSums(mat < 0 | is.na(mat))==0,,drop=F]
+    if (length(groupInfo) != nrow(mat)) {
+        stop("The length of 'groupInfo' should be the same with the number of samples included in 'mat'")
     }
 
+    if(any(mat < 0 | is.na(mat))){
+        warning('Automatically remove samples with NAs or negative numbers!')
+        keepind <- rowSums(mat < 0 | is.na(mat))==0
+        mat <- mat[keepind,,drop=F]
+        if (identical(names(groupInfo), NULL)) {
+            groupInfo <- groupInfo[keepind]
+        }
+    }
+
+    if(any(colSums(mat)==0)) {
+        mat <- mat[,colSums(mat)>0,drop=F]
+        warning("Remove cell types that equal zero across all samples, including:\n",colnames(mat)[colSums(mat)==0])
+    }
+
+
     res <- mat / rowSums(mat)
+
 
     if (is.null(groupInfo)) {
         groupInfo <- rep("", nrow(res))
@@ -38,9 +53,7 @@ barplotCF <- function(mat, groupInfo = NULL, ctCol = NULL) {
     }
 
     samids <- rownames(res)
-    if (length(groupInfo) != length(samids)) {
-        stop("The length of 'groupInfo' should be the same with the number of samples included in 'mat'")
-    }
+
     if (is.factor(groupInfo)) levs <- levels(groupInfo) else levs <- unique(groupInfo)
 
     if (!identical(names(groupInfo), NULL)) {
@@ -53,7 +66,7 @@ barplotCF <- function(mat, groupInfo = NULL, ctCol = NULL) {
         }
         groupInfo <- groupInfo[match(samids, names(groupInfo))]
     }
-    df <- data.frame(Sample = rownames(res), Group = groupInfo, res)
+    df <- data.frame(Sample = rownames(res), Group = groupInfo, res,check.names = F)
     df$Sample=factor(df$Sample,levels = rownames(res))
     df <- reshape2::melt(df, id = c("Sample", "Group"), variable.name = "celltype")
     df$Group <- factor(df$Group, levels = levs)

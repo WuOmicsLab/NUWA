@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1652436967145.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "3DD3753D",
+    "lastKnownWriteTime" : 1652436972,
+    "last_content_update" : 1652436972453,
+    "path" : "D:/Users/xiergo/Desktop/NUWA/R/NUWA.xcell.R",
+    "project_path" : "R/NUWA.xcell.R",
+    "properties" : {
+        "cursorPosition" : "39,47",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 10,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

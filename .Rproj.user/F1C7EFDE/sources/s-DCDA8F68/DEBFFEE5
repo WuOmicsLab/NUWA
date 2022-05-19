@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1652368905834.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "DEBFFEE5",
+    "lastKnownWriteTime" : 1652368935,
+    "last_content_update" : 1652368935844,
+    "path" : "D:/Users/xiergo/Desktop/NUWA/R/buildNetwork.R",
+    "project_path" : "R/buildNetwork.R",
+    "properties" : {
+        "cursorPosition" : "23,84",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

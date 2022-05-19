@@ -2,7 +2,7 @@
 % Please edit documentation in R/NUWA.EPIC.R
 \name{NUWA.EPIC}
 \alias{NUWA.EPIC}
-\title{Built-in NUWA analysis}
+\title{A portal function running EPIC after NUWAms analysis.}
 \usage{
 NUWA.EPIC(expr, signature_matrix)
 }
@@ -15,7 +15,7 @@ NUWA.EPIC(expr, signature_matrix)
 see NUWA.cibersort.
 }
 \description{
-run NUWAms and EPIC algorithm with interested signature matrix
+Run NUWAms and EPIC algorithm with a signature matrix of interest.
 }
 \examples{
 expr <- cptacDatasets$brca[, 1:5]

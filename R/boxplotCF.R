@@ -35,9 +35,16 @@ boxplotCF <- function(mat, groupInfo, groupCol=NULL, groupOrder = NULL,
         stop("rownames or colnames of 'mat' should not be null")
     }
 
+    if(length(groupInfo)!=nrow(mat)){
+        stop("The length of 'groupInfo' should be the same with the number of samples included in CTdeconvRes")
+    }
     if(any(mat < 0 | is.na(mat))){
-        warning('Automatically remove samples with NAs or minus numbers!')
-        mat <- mat[rowSums(mat < 0 | is.na(mat))==0,,drop=F]
+        warning('Automatically remove samples with NAs or negative numbers!')
+        keepind <- rowSums(mat < 0 | is.na(mat))==0
+        mat <- mat[keepind,,drop=F]
+        if (identical(names(groupInfo), NULL)) {
+            groupInfo <- groupInfo[keepind]
+        }
     }
     res <- mat/rowSums(mat)
 
@@ -46,9 +53,7 @@ boxplotCF <- function(mat, groupInfo, groupCol=NULL, groupOrder = NULL,
     }
 
     samids=rownames(res)
-    if(length(groupInfo)!=length(samids)){
-        stop("The length of 'groupInfo' should be the same with the number of samples included in CTdeconvRes")
-    }
+
     if(!identical(names(groupInfo),NULL)){
         if(any(duplicated(names(groupInfo)))){
             stop("The names of groupInfo should be unique")

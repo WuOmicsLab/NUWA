@@ -1,6 +1,6 @@
-#' Built-in NUWA analysis
+#' A portal function running EPIC after NUWAms analysis.
 #'
-#' run NUWAms and EPIC algorithm with interested signature matrix
+#' Run NUWAms and EPIC algorithm with a signature matrix of interest.
 #'
 #' @param expr see the same argument in NUWA.cibersort.
 #' @param signature_matrix see the same argument in NUWA.cibersort.

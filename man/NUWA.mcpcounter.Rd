@@ -2,7 +2,7 @@
 % Please edit documentation in R/NUWA.mcpcounter.R
 \name{NUWA.mcpcounter}
 \alias{NUWA.mcpcounter}
-\title{Built-in NUWA analysis}
+\title{A portal function running CIBERSORT after NUWAms analysis.}
 \usage{
 NUWA.mcpcounter(expr, marker_list = NULL)
 }
@@ -15,7 +15,7 @@ NUWA.mcpcounter(expr, marker_list = NULL)
 see NUWA.cibersort.
 }
 \description{
-run NUWAms and MCPcounter algorithm with interested marker list.
+Run NUWAms and MCPcounter algorithm with a marker list of interest.
 }
 \examples{
 expr <- cptacDatasets$brca[, 1:5]
