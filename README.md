@@ -2,15 +2,16 @@
 
 ## Description
 
-An R package implementing NUWA pipeline to infer abundances of missing cell markers and decipher relative immune cell fractions using mass spectrometry-based proteomic profiles. It consists of two major functions: (1) `NUWAms`,  to infer  abundances of missing cell markers using the given co-expression networks of individual marker. For users' convenience, the package includes built-in cancer co-expression networks for markers of BCIC, LM22, LM6, MCPcounter and xCell signatures/marker lists. (2) `NUWAeDeconv`, an ensemble method of three deconvolution algorithm-signature combinations to estimate the relative fractions of six immune cell types. 
+An R package implementing NUWA pipeline for abundance inferenece of missing cell markers in mass spectrometry-based proteomic profiles, to enable accurate deconvolution of relative immune cell fractions. It consists of three major modules: (1) `NUWAms`, to infer abundances of missing cell markers based on co-expression networks of individual markers. For users' convenience, the package includes built-in cancer co-expression networks for markers of <b>NUWAp26</b> (a proteomic signature matrix we developed for 26 immune cell types), and a set of previously published markers (signature genes), including BCIC, LM22, LM6, MCPcounter and xCell. (2) `NUWAeDeconv`, a benchmarked ensemble method of three deconvolution algorithm-signature combinations to estimate the relative fractions of six immune cell types. (3) A number of portal functions for deconvolution analysis with individual published deconvolution algorithm, following `NUWAms` analysis of proteomic profiles.
+
 
 ## Installation
 
-System requirements: R >= 3.6 
+System requirements: R >= 3.6.1
 
 ```R
 install.packages("devtools")
-devtools::install_github('Wulab-CCB/NUWA')
+devtools::install_github('WuOmicsLab/NUWA')
 ```
 
 ## Usages
@@ -19,7 +20,7 @@ The main functions in NUWA package are `NUWAms`  and `NUWAeDeconv`. See below
 
 ### 1) NUWAms
 
-NUWAms takes a protein abundance matrix and a co-expression networks (optional) as input. Each column of protein abundance matrix represents a sample and each row represents a protein.  
+`NUWAms` takes a protein abundance matrix and a co-expression networks (optional) as input. Each column of protein abundance matrix represents a sample and each row represents a protein.  
 
 (**a**) Run `NUWAms` using the default co-expression network for LM22, LM6 and BCIC signatures:
 
@@ -43,15 +44,15 @@ res_nuwams = NUWAms(expr = nuwa_raw_expr, network = my.network)
 ```R
 # Provide the file path to CIBERSORT R source code
 cibersortPath = "<PATHTO>/CIBERSORT.R"
-res_deconv = NUWAeDeconv(m.exp = res_nuwams$finalExpr, cibersortPath = cibersortPath)
+res_deconv = NUWAeDeconv(expr = res_nuwams$finalExpr, cibersortPath = cibersortPath)
 ```
 
-"res_deconv" includes matrices for immune cell fractions estimated by `NUWAeDeconv`,  originial predictions and updated ones (with cell types merged)  by CIBERSORT-LM22, CIBERSORT-LM6 and EPIC-BCIC, respectively. 
+"res_deconv" includes matrices for immune cell fractions estimated by `NUWAeDeconv`,  original predictions and updated ones (with cell types merged)  by CIBERSORT-LM22, CIBERSORT-LM6 and EPIC-BCIC, respectively. 
 
 
-### 3) other deconvolution approaches
+### 3) Other deconvolution approaches
 
-Beside the ensemble deconvolution method `NUWAeDeconv`, the package also supports analysis using individual algorithm (including EPIC, Cibersort, MCPcounter, xCell) using the built-in co-expression networks for markers of these interested algorithms.
+Additionally, convenient portal functions are provided for deconvolution analysis using individual published deconvolution algorithm (including CIBERSORT, EPIC, MCPcounter and xCell) , following `NUWAms` analysis of proteomic profiles.
 
 ```R
 # run NUWAms and EPIC
@@ -67,6 +68,13 @@ res_nuwa <- NUWA.mcpcounter(expr = raw_expr)
 
 ## License
 
-NUWA is free for academic users of non-commercial purposes. Commercial use of NUWA requires a license.
+NUWA is free for academic users of non-commercial purposes. Commercial use of NUWA requires a license. If NUWA package was used for your analysis, please cite our package and the used deconvolution algorithm(s).
+
 
 ## References
+| Name | license | PMID | Citation |
+| :- | :- | :- |:- |
+| MCPcounter | free | 27765066 | Becht, E. et al. Estimating the population abundance of tissue-infiltrating immune and stromal cell populations using gene expression. Genome Biol 17, 218 (2016). |
+| xCell | free | 29141660 | Aran, D., Hu, Z. & Butte, A.J. xCell: digitally portraying the tissue cellular heterogeneity landscape. Genome Biol 18, 220 (2017). |
+| CIBERSORT | free for non-commerical use | 25822800 | Newman, A.M. et al. Robust enumeration of cell subsets from tissue expression profiles. Nat Methods 12, 453-457 (2015). |
+| EPIC | free | 29130882 | Racle, J., de Jonge, K., Baumgaertner, P., Speiser, D.E. & Gfeller, D. Simultaneous enumeration of cancer and immune cell types from bulk tumor gene expression data. Elife 6 (2017). |
