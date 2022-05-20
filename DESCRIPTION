@@ -31,5 +31,6 @@ Suggests:
 VignetteBuilder: knitr
 Remotes:
     GfellerLab/EPIC,
-    ebecht/MCPcounter/Source
+    ebecht/MCPcounter/Source,
+    bioc::preprocessCore
     
