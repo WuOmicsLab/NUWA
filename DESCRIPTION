@@ -15,7 +15,6 @@ Depends:
     R (>= 3.6.1),
     e1071 (>= 1.7.3)
 Imports:
-    preprocessCore,
     parallel,
     EPIC,
     abind,
