@@ -10,8 +10,9 @@ An R package implementing NUWA pipeline for abundance inferenece of missing cell
 System requirements: R >= 3.6.1
 
 ```R
-install.packages("devtools")
-devtools::install_github('WuOmicsLab/NUWA')
+if(!require("remotes", quietly = TRUE))
+    install.packages("remotes")
+remotes::install_github('WuOmicsLab/NUWA')
 ```
 
 ## Usages
