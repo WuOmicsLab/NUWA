@@ -16,12 +16,10 @@ Depends:
     e1071 (>= 1.7.3)
 Imports:
     parallel,
-    EPIC,
     abind,
     reshape2,
     ggplot2,
-    glmnet,
-    MCPcounter
+    glmnet
 Suggests:
     knitr,
     roxygen2,
