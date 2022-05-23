@@ -19,7 +19,7 @@ Imports:
     abind,
     reshape2,
     ggplot2,
-    glmnet (=4.1-1)
+    glmnet (4.1-1)
 Suggests:
     knitr,
     roxygen2,
