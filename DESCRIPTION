@@ -29,5 +29,5 @@ Remotes:
     GfellerLab/EPIC,
     ebecht/MCPcounter/Source,
     bioc::preprocessCore,
-    url::https://mirrors.sjtug.sjtu.edu.cn/cran/src/contrib/glmnet_4.1-1.tar.gz
+    url::https://cloud.r-project.org/src/contrib/Archive/glmnet/glmnet_4.1-1.tar.gz
     
