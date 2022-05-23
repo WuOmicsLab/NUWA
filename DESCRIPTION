@@ -18,8 +18,7 @@ Imports:
     parallel,
     abind,
     reshape2,
-    ggplot2,
-    glmnet
+    ggplot2
 Suggests:
     knitr,
     roxygen2,
@@ -29,5 +28,6 @@ VignetteBuilder: knitr
 Remotes:
     GfellerLab/EPIC,
     ebecht/MCPcounter/Source,
-    bioc::preprocessCore
+    bioc::preprocessCore,
+    url::https://mirrors.sjtug.sjtu.edu.cn/cran/src/contrib/glmnet_4.1-1.tar.gz
     
