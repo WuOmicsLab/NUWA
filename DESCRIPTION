@@ -18,7 +18,8 @@ Imports:
     parallel,
     abind,
     reshape2,
-    ggplot2
+    ggplot2,
+    glmnet
 Suggests:
     knitr,
     roxygen2,
