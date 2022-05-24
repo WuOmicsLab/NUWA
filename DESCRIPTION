@@ -34,6 +34,7 @@ Remotes:
     GfellerLab/EPIC,
     ebecht/MCPcounter/Source,
     bioc::3.15/preprocessCore,
+    bioc::3.15/GSEABase,
     bioc::3.15/GSVA,
     dviraran/xCell
     
