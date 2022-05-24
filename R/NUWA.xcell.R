@@ -6,6 +6,7 @@
 #' @param marker_list a list, whose names are cellular populations' names
 #' and elements are character vectors of markers (HUGO symbols), default is
 #' xCell64.
+#' @param ... additional arguments passed to the NUWAms() function
 #'
 #' @return see NUWA.cibersort.
 #' @export
@@ -14,7 +15,7 @@
 #' expr <- cptacDatasets$brca[, 1:5]
 #' res_nuwa <- NUWA.xcell(expr, marker_list = NULL)
 #' res_nuwa <- NUWA.xcell(expr, marker_list = my_markers)
-NUWA.xcell <- function(expr, marker_list = NULL) {
+NUWA.xcell <- function(expr, marker_list = NULL, ...) {
     if(!require("xCell", quietly = TRUE)) {
         remotes::install_github('dviraran/xCell')
     } else {
@@ -32,7 +33,11 @@ NUWA.xcell <- function(expr, marker_list = NULL) {
     }
 
     nw <- buildNetwork(markers = unique(markers))
-    res <- NUWAms(expr, network = nw)
+
+    args <- list(...)
+    args <- modifyList(args, list(expr = expr, network=nw), keep.null = T)
+
+    res <- do.call(NUWAms, args)
     expr_impute <- res$finalExpr
     predVsTruth <- res$predVsTruth
     prop <- xCell::xCellAnalysis(expr_impute, signatures = marker_list,

@@ -13,13 +13,16 @@ RoxygenNote: 7.1.2
 URL: https://github.com/WuOmicsLab/NUWA
 Depends:
     R (>= 3.6.1),
-    e1071 (>= 1.7.3)
+    e1071 (>= 1.7.3),
+    preprocessCore
 Imports:
     parallel,
     abind,
     reshape2,
     ggplot2,
-    glmnet
+    glmnet,
+    EPIC,
+    MCPcounter
 Suggests:
     knitr,
     roxygen2,
@@ -29,5 +32,5 @@ VignetteBuilder: knitr
 Remotes:
     GfellerLab/EPIC,
     ebecht/MCPcounter/Source,
-    bioc::preprocessCore
+    bioc::3.15/preprocessCore
     

@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1653366083099.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "F7A46AC9",
+    "lastKnownWriteTime" : 1653352451,
+    "last_content_update" : 1653352451,
+    "path" : "D:/Users/xiergo/Desktop/nuwa1/NUWA/R/NUWAms.R",
+    "project_path" : "R/NUWAms.R",
+    "properties" : {
+        "cursorPosition" : "23,32",
+        "scrollLine" : "16"
+    },
+    "relative_order" : 11,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

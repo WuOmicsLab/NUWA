@@ -4,6 +4,7 @@
 #'
 #' @param expr see the same argument in NUWA.cibersort.
 #' @param marker_list see the same argument in NUWA.xcell, default is MCPcounter markers.
+#' @param ... additional arguments passed to the NUWAms() function
 #'
 #' @return see NUWA.cibersort.
 #' @export
@@ -12,7 +13,7 @@
 #' expr <- cptacDatasets$brca[, 1:5]
 #' res_nuwa <- NUWA.mcpcounter(expr, marker_list = NULL)
 #' res_nuwa <- NUWA.mcpcounter(expr, marker_list = my_markers)
-NUWA.mcpcounter <- function(expr, marker_list = NULL) {
+NUWA.mcpcounter <- function(expr, marker_list = NULL, ...) {
 
     if (!is.matrix(expr)) {
         stop("Parameter 'expr' should be a matrix")
@@ -22,7 +23,10 @@ NUWA.mcpcounter <- function(expr, marker_list = NULL) {
 
 
     nw <- buildNetwork(markers = unique(unlist(marker_list)))
-    res <- NUWAms(expr, network = nw)
+    args <- list(...)
+    args <- modifyList(args, list(expr = expr, network=nw), keep.null = T)
+
+    res <- do.call(NUWAms, args)
     expr_impute <- res$finalExpr
     predVsTruth <- res$predVsTruth
     prop <- MCPcounter::appendSignatures(expr_impute, markers = marker_list)

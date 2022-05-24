@@ -1,9 +1,10 @@
-#' Built-in NUWA analysis
+#' A portal function running EPIC after NUWAms analysis.
 #'
-#' run NUWAms and EPIC algorithm with interested signature matrix
+#' Run NUWAms and EPIC algorithm with a signature matrix of interest.
 #'
 #' @param expr see the same argument in NUWA.cibersort.
 #' @param signature_matrix see the same argument in NUWA.cibersort.
+#' @param ... additional arguments passed to the NUWAms() function
 #'
 #' @return see NUWA.cibersort.
 #' @export
@@ -13,7 +14,7 @@
 #' res_nuwa <- NUWA.EPIC(expr, signature_matrix = BCIC)
 #' res_nuwa <- NUWA.EPIC(expr, signature_matrix = TIC)
 #' res_nuwa <- NUWA.EPIC(expr, signature_matrix = my_signature_matrix)
-NUWA.EPIC <- function(expr, signature_matrix) {
+NUWA.EPIC <- function(expr, signature_matrix, ...) {
     if (!is.matrix(expr)) {
         stop("Parameter 'expr' should be a matrix")
     }
@@ -21,7 +22,10 @@ NUWA.EPIC <- function(expr, signature_matrix) {
         stop("Parameter 'signature_matrix' should be given as matrix.")
     }
     nw <- buildNetwork(markers = rownames(signature_matrix))
-    res <- NUWAms(expr, network = nw)
+    args <- list(...)
+    args <- modifyList(args, list(expr = expr, network=nw), keep.null = T)
+
+    res <- do.call(NUWAms, args)
     expr_impute <- res$finalExpr
     print(str(expr))
     print(str(expr_impute))
