@@ -26,6 +26,8 @@ buildNetwork(
 \item{nTr}{a positive integer, we only build network for markers existing in greater than or equal to "nTr" training datasets. Default is 3.}
 
 \item{corCutoff}{a positive numeric, specifying the absolute Pearson correlation coefficient threshold above which a co-expression will be declared between individual marker and other quantified protein. For each marker, we identify its “coherently correlated proteins”, i.e., proteins with the same correlation coefficient sign in all training datasets, and with significant correlation (P < 0.05, absolute value of Pearson correlation coefficient greater than "corCutoff") in at least two training datasets. Default is 0.3.}
+
+\item{ncores}{a positive integer, indicating the number of cores used by this function. If the operating system is windows, then only one core will be used.}
 }
 \value{
 A list containing:\describe{
