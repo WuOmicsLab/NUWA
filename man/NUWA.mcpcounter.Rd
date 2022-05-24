@@ -4,12 +4,14 @@
 \alias{NUWA.mcpcounter}
 \title{A portal function running CIBERSORT after NUWAms analysis.}
 \usage{
-NUWA.mcpcounter(expr, marker_list = NULL)
+NUWA.mcpcounter(expr, marker_list = NULL, ...)
 }
 \arguments{
 \item{expr}{see the same argument in NUWA.cibersort.}
 
 \item{marker_list}{see the same argument in NUWA.xcell, default is MCPcounter markers.}
+
+\item{...}{additional arguments passed to the NUWAms() function}
 }
 \value{
 see NUWA.cibersort.

@@ -4,12 +4,14 @@
 \alias{NUWA.EPIC}
 \title{A portal function running EPIC after NUWAms analysis.}
 \usage{
-NUWA.EPIC(expr, signature_matrix)
+NUWA.EPIC(expr, signature_matrix, ...)
 }
 \arguments{
 \item{expr}{see the same argument in NUWA.cibersort.}
 
 \item{signature_matrix}{see the same argument in NUWA.cibersort.}
+
+\item{...}{additional arguments passed to the NUWAms() function}
 }
 \value{
 see NUWA.cibersort.

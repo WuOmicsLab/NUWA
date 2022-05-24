@@ -4,7 +4,7 @@
 \alias{NUWA.xcell}
 \title{A portal function running xCell after NUWAms analysis.}
 \usage{
-NUWA.xcell(expr, marker_list = NULL)
+NUWA.xcell(expr, marker_list = NULL, ...)
 }
 \arguments{
 \item{expr}{see the same argument of NUWA.cibersort.}
@@ -12,6 +12,8 @@ NUWA.xcell(expr, marker_list = NULL)
 \item{marker_list}{a list, whose names are cellular populations' names
 and elements are character vectors of markers (HUGO symbols), default is
 xCell64.}
+
+\item{...}{additional arguments passed to the NUWAms() function}
 }
 \value{
 see NUWA.cibersort.

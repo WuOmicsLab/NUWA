@@ -4,7 +4,7 @@
 \alias{NUWA.cibersort}
 \title{A portal function running CIBERSORT after NUWAms analysis.}
 \usage{
-NUWA.cibersort(expr, signature_matrix, cibersortPath)
+NUWA.cibersort(expr, signature_matrix, cibersortPath, ...)
 }
 \arguments{
 \item{expr}{a numeric matrix of expression profiles for bulk tissue samples, with HUGO gene symbols as rownames and sample identifiers as colnames. Data must be non-logarithm scale.}
@@ -12,6 +12,8 @@ NUWA.cibersort(expr, signature_matrix, cibersortPath)
 \item{signature_matrix}{a signature matrix, which is a numeric expression matrix of markers in cell types of interest, with HUGO gene symbols as rownames and cell type identifiers as colnames. Such as LM22, LM6, BCIC, TIC or user provided signature matrix.}
 
 \item{cibersortPath}{a string specifying the path of CIBERSORT R script, CIBERSORT is only freely available for academic users, please register on https://cibersort.stanford.edu, and download the CIBERSORT source script.}
+
+\item{...}{additional arguments passed to the NUWAms() function}
 }
 \value{
 The results of each built-in NUWA analysis function, is a list containing an expression matrix with missing markers inferred, two matrices used for recall analysis, and a matrix including cell fractions estimated by the algorithm used.
