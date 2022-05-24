@@ -22,7 +22,8 @@ Imports:
     ggplot2,
     glmnet,
     EPIC,
-    MCPcounter
+    MCPcounter,
+    GSVA
 Suggests:
     knitr,
     roxygen2,
@@ -32,5 +33,7 @@ VignetteBuilder: knitr
 Remotes:
     GfellerLab/EPIC,
     ebecht/MCPcounter/Source,
-    bioc::3.15/preprocessCore
+    bioc::3.15/preprocessCore,
+    bioc::3.15/GSVA,
+    dviraran/xCell
     
