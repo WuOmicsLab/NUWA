@@ -2,7 +2,7 @@
 
 ## Description
 
-An R package implementing NUWA pipeline for abundance inferenece of missing cell markers in mass spectrometry-based proteomic profiles, to enable accurate deconvolution of relative immune cell fractions. It consists of three major modules: (1) `NUWAms`, to infer abundances of missing cell markers based on co-expression networks of individual markers. For users' convenience, the package includes built-in cancer co-expression networks for markers of <b>NUWAp26</b> (a proteomic signature matrix we developed for 26 immune cell types), and a set of previously published markers (signature genes), including BCIC, LM22, LM6, MCPcounter and xCell. (2) `NUWAeDeconv`, a benchmarked ensemble method of three deconvolution algorithm-signature combinations to estimate the relative fractions of six immune cell types. (3) A number of portal functions for deconvolution analysis with individual published deconvolution algorithm, following `NUWAms` analysis of proteomic profiles.
+An R package implementing NUWA pipeline for abundance inference of missing cell markers in mass spectrometry-based proteomic profiles, to enable accurate deconvolution of relative immune cell fractions. It consists of three major modules: (1) `NUWAms`, to infer abundances of missing cell markers based on co-expression networks of individual markers. For users' convenience, the package includes built-in cancer co-expression networks for markers of <b>NUWAp26</b> (a proteomic signature matrix we developed for 26 immune cell types), and a set of previously published markers (signature genes), including BCIC, LM22, LM6, MCPcounter and xCell. (2) `NUWAeDeconv`, a benchmarked ensemble method of three deconvolution algorithm-signature combinations to estimate the relative fractions of six immune cell types. (3) A number of portal functions for deconvolution analysis with individual published deconvolution algorithm, following `NUWAms` analysis of proteomic profiles.
 
 
 ## Installation
@@ -14,10 +14,11 @@ if(!require("remotes", quietly = TRUE))
     install.packages("remotes")
 remotes::install_github('WuOmicsLab/NUWA')
 ```
+Note: if the installation fails due to `glmnet` package, try mannual installation by `remotes::install_version("glmnet", version = "4.1-1", repos = "https://cran.us.r-project.org")` before installing `NUWA` package. 
 
 ## Usages
 
-The main functions in NUWA package are `NUWAms`  and `NUWAeDeconv`. See below for a quick start, while details of each parameters is available at the document file.
+The main functions in NUWA package are `NUWAms`  and `NUWAeDeconv`. See below for a quick start, while details of each parameters are available in the manual documentation.
 
 ### 1) NUWAms
 
@@ -35,7 +36,7 @@ res_nuwams = NUWAms(expr = raw_expr, network = NULL)
 
 ```R
 my.network <- buildNetwork(trainsets = cptacDatasets, markers = my.markers)
-res_nuwams = NUWAms(expr = nuwa_raw_expr, network = my.network)
+res_nuwams <- NUWAms(expr = raw_expr, network = my.network)
 ```
 
 ### 2) NUWAeDeconv
@@ -45,7 +46,7 @@ res_nuwams = NUWAms(expr = nuwa_raw_expr, network = my.network)
 ```R
 # Provide the file path to CIBERSORT R source code
 cibersortPath = "<PATHTO>/CIBERSORT.R"
-res_deconv = NUWAeDeconv(expr = res_nuwams$finalExpr, cibersortPath = cibersortPath)
+res_deconv <- NUWAeDeconv(expr = res_nuwams$finalExpr, cibersortPath = cibersortPath)
 ```
 
 "res_deconv" includes matrices for immune cell fractions estimated by `NUWAeDeconv`,  original predictions and updated ones (with cell types merged)  by CIBERSORT-LM22, CIBERSORT-LM6 and EPIC-BCIC, respectively. 
@@ -77,5 +78,8 @@ NUWA is free for academic users of non-commercial purposes. Commercial use of NU
 | :- | :- | :- |:- |
 | MCPcounter | free | 27765066 | Becht, E. et al. Estimating the population abundance of tissue-infiltrating immune and stromal cell populations using gene expression. Genome Biol 17, 218 (2016). |
 | xCell | free | 29141660 | Aran, D., Hu, Z. & Butte, A.J. xCell: digitally portraying the tissue cellular heterogeneity landscape. Genome Biol 18, 220 (2017). |
-| CIBERSORT | free for non-commerical use | 25822800 | Newman, A.M. et al. Robust enumeration of cell subsets from tissue expression profiles. Nat Methods 12, 453-457 (2015). |
+| CIBERSORT | free for non-commercial use | 25822800 | Newman, A.M. et al. Robust enumeration of cell subsets from tissue expression profiles. Nat Methods 12, 453-457 (2015). |
 | EPIC | free | 29130882 | Racle, J., de Jonge, K., Baumgaertner, P., Speiser, D.E. & Gfeller, D. Simultaneous enumeration of cancer and immune cell types from bulk tumor gene expression data. Elife 6 (2017). |
+
+## Contact information
+Lihua Cao (lihuacao@bjcancer.org), Yuhao Xie (xieyuhao@pku.edu.cn), Jianmin Wu (wujm@bjmu.edu.cn).
