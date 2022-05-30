@@ -14,11 +14,11 @@ if(!require("remotes", quietly = TRUE))
     install.packages("remotes")
 remotes::install_github('WuOmicsLab/NUWA')
 ```
-Note: if the installation fails due to `glmnet` package, try mannual installation by `remotes::install_version("glmnet", version = "4.1-1", repos = "https://cran.us.r-project.org")` before installing `NUWA` package. 
+Note: if the installation fails due to `glmnet` package, try manual installation by `remotes::install_version("glmnet", version = "4.1-1", repos = "https://cran.us.r-project.org")` before installing `NUWA` package. 
 
 ## Usages
 
-The main functions in NUWA package are `NUWAms`  and `NUWAeDeconv`. See below for a quick start, while details of each parameters are available in the [manual documentation](https://github.com/WuOmicsLab/NUWA/blob/main/man/NUWA_0.1.0.pdf).
+The main functions in NUWA package are `NUWAms` and `NUWAeDeconv`. See below for a quick start, while details of each parameters are available in the [manual documentation](https://github.com/WuOmicsLab/NUWA/blob/main/man/NUWA_0.1.0.pdf).
 
 ### 1) NUWAms
 
@@ -54,7 +54,7 @@ res_deconv <- NUWAeDeconv(expr = res_nuwams$finalExpr, cibersortPath = cibersort
 
 ### 3) Other deconvolution approaches
 
-Additionally, convenient portal functions are provided for deconvolution analysis using individual published deconvolution algorithm (including CIBERSORT, EPIC, MCPcounter and xCell) , following `NUWAms` analysis of proteomic profiles.
+Additionally, convenient portal functions are provided for deconvolution analysis using individual published deconvolution algorithm (including CIBERSORT, EPIC, MCPcounter and xCell), following `NUWAms` analysis of proteomic profiles.
 
 ```R
 # run NUWAms and EPIC
