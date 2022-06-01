@@ -19,9 +19,6 @@ NUWA.cibersort <- function(expr, signature_matrix, cibersortPath, ...) {
     if (!check_cibersort(cibersortPath)){
         stop("Invalid cibersort path. Please download script from cibersort website (https://cibersort.stanford.edu).")
     }
-    impute <- T
-    buildNetworkArgs <- list()
-    nuwamsArgs <- list(...)
     if (! is.matrix(expr)) {
         stop("'expr' should be a matrix")
     }
@@ -33,20 +30,12 @@ NUWA.cibersort <- function(expr, signature_matrix, cibersortPath, ...) {
     if (!file.exists(cibersortPath)) {
         stop("Could not find file ", cibersortPath)
     }
-    if (impute) {
 
-        buildNetworkArgs0 <- list(markers = rownames(signature_matrix))
-        buildNetworkArgs0 <- modifyList(buildNetworkArgs0, buildNetworkArgs)
-        nw <- do.call(buildNetwork, buildNetworkArgs0)
+    nuwamsArgs0 <- modifyList(list(...), list(expr = mix, markers = rownames(signature_matrix)), keep.null = T)
+    res <- do.call(NUWAms, nuwamsArgs0)
+    mix <- res$finalExpr
+    predVsTruth <- res$predVsTruth
 
-        nuwamsArgs0 <- list(expr = mix, network = nw)
-        nuwamsArgs0 <- modifyList(nuwamsArgs0, nuwamsArgs, keep.null = T)
-        mix0 <- mix
-        res <- do.call(NUWAms, nuwamsArgs0)
-        mix <- res$finalExpr
-        predVsTruth <- res$predVsTruth
-        # save(signature_matrix, mix0, mix, nw, file = "/home/pub/project/deconvolution/tcga/cptac_test/nuwa_package_development/res_xiergo_new.rda")
-    }
     prop <- CIBERSORT(signature_matrix, mix, QN = T)
     if (!impute) {
         mix <- NULL

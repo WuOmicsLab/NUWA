@@ -1,9 +1,10 @@
-#' Infer proteomic expression abundance for missing immune markers, note that union of markers from public signature matrices "LM6", "LM22"and "BCIC" will be used.
+#' Infer proteomic expression abundance using the given co-expression networks of individual marker for user provided marker list.
 #'
-#' This function is to infer the abundance of missing cell markers using the given co-expression networks of individual marker. It may take a few minutes, if more than 50 samples were included in the analysis.
+#' This function is to infer the abundance of missing markers using the given co-expression networks of individual marker. It may take a few hours, if more than 50 samples were included in the analysis.
 #'
 #' @param expr a numeric matrix of expression profiles for bulk tissue samples, with HUGO gene symbols as rownames and sample identifiers as colnames.
-#' @param network a list, consisting of the co-expression networks built by function buildNetwork(). Default is NULL, then the built-in networks using six CPTAC datasets (S025, S029, S037/S045, S043, S044/S050 and S046/S056) for individual marker from LM22, LM6 and BCIC signatures will be used. NULL is required when NUWAeDeconv function will be used followingly.
+#' @param network a list, consisting of the co-expression networks built by function buildNetwork(). Default is NULL, then the built-in networks using six CPTAC datasets (S025, S029, S037/S045, S043, S044/S050 and S046/S056) for individual proteins of the six datasets will be used. Note that, we only infer abundance for markers existing in the network.
+#' @param markers a character vector of interesting markers to infer. If NULL (default), the union of markers from public signature matrices "LM6", "LM22" and "BCIC" will be used.
 #' @param direction a character, indicating the mode used for feature searching in stepwise regression analysis, one of "both", "backward" or "forward". Default is "both".
 #' @param lasso_step_cutoff a positive integer, specifying the minimal number of variables needed to run LASSO regression analysis. If the number is less than "lasso_step_cutoff", stepwise regression models will be constructed. Default is 10.
 #' @param preprocess logical. If TURE, expression data is preprocessed before markers inferring. Default is TRUE. See the Methods section of the NUWA manuscript for more details.
@@ -21,7 +22,7 @@
 #' @examples
 #' expr <- cptacDatasets$brca[, 1:5]
 #' res <- NUWAms(expr)
-NUWAms <- function(expr, network = NULL, direction=c("both", "backward", "forward")[1],
+NUWAms <- function(expr, network = NULL, markers = NULL, direction=c("both", "backward", "forward")[1],
                    lasso_step_cutoff=10, preprocess = T, ncores = 16,
                    lambda = c("lambda.1se", "lambda.min")[1]){
     simplifyModel <- function(mod) {
@@ -72,10 +73,11 @@ NUWAms <- function(expr, network = NULL, direction=c("both", "backward", "forwar
     expr <- expr_gsls$y
     reverse_fun <- expr_gsls$reverseFun
     # c("corr", "markers", "trainScaled")
+    if(is.null(markers)) markers <- MARKERS
+    if (is.null(network)) network <- NETWORK
+    network <- pruneNetwork(markers, network)
 
-    if (is.null(network)) {
-        network <- buildNetwork()
-    }
+
     markers <- unique(network$markers)
     EXP <- network$trainScaled
     # cordf <- network$corr

@@ -32,10 +32,9 @@ NUWA.xcell <- function(expr, marker_list = NULL, ...) {
         markers <- unlist(marker_list)
     }
 
-    nw <- buildNetwork(markers = unique(markers))
 
     args <- list(...)
-    args <- modifyList(args, list(expr = expr, network=nw), keep.null = T)
+    args <- modifyList(args, list(expr = expr, markers=unique(markers)), keep.null = T)
 
     res <- do.call(NUWAms, args)
     expr_impute <- res$finalExpr

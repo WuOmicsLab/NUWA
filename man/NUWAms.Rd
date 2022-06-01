@@ -2,11 +2,12 @@
 % Please edit documentation in R/NUWAms.R
 \name{NUWAms}
 \alias{NUWAms}
-\title{Infer proteomic expression abundance for missing immune markers, note that union of markers from public signature matrices "LM6", "LM22"and "BCIC" will be used.}
+\title{Infer proteomic expression abundance using the given co-expression networks of individual marker for user provided marker list.}
 \usage{
 NUWAms(
   expr,
   network = NULL,
+  markers = NULL,
   direction = c("both", "backward", "forward")[1],
   lasso_step_cutoff = 10,
   preprocess = T,
@@ -17,7 +18,9 @@ NUWAms(
 \arguments{
 \item{expr}{a numeric matrix of expression profiles for bulk tissue samples, with HUGO gene symbols as rownames and sample identifiers as colnames.}
 
-\item{network}{a list, consisting of the co-expression networks built by function buildNetwork(). Default is NULL, then the built-in networks using six CPTAC datasets (S025, S029, S037/S045, S043, S044/S050 and S046/S056) for individual marker from LM22, LM6 and BCIC signatures will be used. NULL is required when NUWAeDeconv function will be used followingly.}
+\item{network}{a list, consisting of the co-expression networks built by function buildNetwork(). Default is NULL, then the built-in networks using six CPTAC datasets (S025, S029, S037/S045, S043, S044/S050 and S046/S056) for individual proteins of the six datasets will be used. Note that, we only infer abundance for markers existing in the network.}
+
+\item{markers}{a character vector of interesting markers to infer. If NULL (default), the union of markers from public signature matrices "LM6", "LM22" and "BCIC" will be used.}
 
 \item{direction}{a character, indicating the mode used for feature searching in stepwise regression analysis, one of "both", "backward" or "forward". Default is "both".}
 
@@ -38,7 +41,7 @@ A list:\describe{
 }
 }
 \description{
-This function is to infer the abundance of missing cell markers using the given co-expression networks of individual marker. It may take a few minutes, if more than 50 samples were included in the analysis.
+This function is to infer the abundance of missing markers using the given co-expression networks of individual marker. It may take a few hours, if more than 50 samples were included in the analysis.
 }
 \examples{
 expr <- cptacDatasets$brca[, 1:5]

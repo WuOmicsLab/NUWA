@@ -34,19 +34,21 @@ buildNetwork <- function(trainsets = NULL, markers = NULL, preprocess = T,
                          batchInfoList = NULL, nTr = 2, corCutoff = 0.3, ncores = 16) {
 
     if (is.null(markers)) markers <- MARKERS
+    input_markers <- markers
     if (is.null(trainsets)) {
         cat("Using six cptac datasets\n")
         if (nTr == 2 & corCutoff == 0.3 & (!preprocess)) {
             cat("Using pre-computed network\n")
-            nw <- NETWORK
-            gps <- nw$genepair
-            gpls <- strsplit(gps, "~")
-            markers <- intersect(markers, NETWORK$markers)
-            gps <- gps[sapply(gpls, function(x) {any(x %in% markers)})]
-            nw$markers <- markers
-            nw$genepair <- gps
-            trs_scaled <- lapply(cptacDatasets, function(exp) exp <- global.scale(exp)$y)
-            nw$trainScaled <- trs_scaled
+            nw <- pruneNetwork(markers)
+            # nw <- NETWORK
+            # gps <- nw$genepair
+            # gpls <- strsplit(gps, "~")
+            # markers <- intersect(markers, NETWORK$markers)
+            # gps <- gps[sapply(gpls, function(x) {any(x %in% markers)})]
+            # nw$markers <- markers
+            # nw$genepair <- gps
+            # trs_scaled <- lapply(cptacDatasets, function(exp) exp <- global.scale(exp)$y)
+            # nw$trainScaled <- trs_scaled
             return(nw)
         } else {
             trainsets <- cptacDatasets
@@ -125,7 +127,36 @@ buildNetwork <- function(trainsets = NULL, markers = NULL, preprocess = T,
         return("In-consistent")
     })
     genepair <- as.character(cordf$Genepair[cordf$Type == "Consistent"])
-    res <- list(genepair, overlap, EXP)
-    names(res) <- c("genepair", "markers", "trainScaled")
+    res <- list(genepair, overlap, EXP, input_markers)
+    names(res) <- c("genepair", "markers", "trainScaled","input_markers")
     return(res)
 }
+
+
+pruneNetwork <- function(markers, network = NETWORK){
+    nw <- network
+    isdef <- identical(nw, NETWORK)
+    if(isdef){
+        nw$trainScaled <- lapply(cptacDatasets, function(exp) exp <- global.scale(exp)$y)
+    }
+
+    if(!is.null(nw$input_markers)){
+        if (length(setdiff(markers, nw$input_markers))>0) {
+            warnings("Argument 'markers' is not a subset of network's markers, and the overlap will be used!
+                     If you don't want to lose information, you'd better to build a new network using buildNetwork() with the latest markers")
+        }
+        nw$input_markers=intersect(nw$input_markers, markers)
+    } else{
+        nw$input_markers <- markers
+    }
+
+
+    markers <- intersect(markers, nw$markers)
+    gps <- nw$genepair
+    gpls <- strsplit(gps, "~")
+    gps <- gps[sapply(gpls, function(x) {any(x %in% markers)})]
+    nw$markers <- markers
+    nw$genepair <- gps
+    return(nw)
+}
+

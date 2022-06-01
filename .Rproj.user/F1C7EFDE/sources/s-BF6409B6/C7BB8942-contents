@@ -21,9 +21,9 @@ NUWA.EPIC <- function(expr, signature_matrix, ...) {
     if (!is.matrix(signature_matrix)) {
         stop("Parameter 'signature_matrix' should be given as matrix.")
     }
-    nw <- buildNetwork(markers = rownames(signature_matrix))
+
     args <- list(...)
-    args <- modifyList(args, list(expr = expr, network=nw), keep.null = T)
+    args <- modifyList(args, list(expr = expr, markers = rownames(signature_matrix)), keep.null = T)
 
     res <- do.call(NUWAms, args)
     expr_impute <- res$finalExpr

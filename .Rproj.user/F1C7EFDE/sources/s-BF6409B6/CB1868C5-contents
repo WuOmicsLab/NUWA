@@ -22,9 +22,8 @@ NUWA.mcpcounter <- function(expr, marker_list = NULL, ...) {
     if (is.null(marker_list)) marker_list = mcpcounter_marker_list
 
 
-    nw <- buildNetwork(markers = unique(unlist(marker_list)))
     args <- list(...)
-    args <- modifyList(args, list(expr = expr, network=nw), keep.null = T)
+    args <- modifyList(args, list(expr = expr, markers=unique(unlist(marker_list))), keep.null = T)
 
     res <- do.call(NUWAms, args)
     expr_impute <- res$finalExpr
