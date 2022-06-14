@@ -18,7 +18,7 @@ Note: if the installation fails due to `glmnet` package, try manual installation
 
 ## Usages
 
-The main functions in NUWA package are `NUWAms` and `NUWAeDeconv`. See below for a quick start, while details of each parameters are available in the [manual documentation](https://github.com/WuOmicsLab/NUWA/blob/main/man/NUWA_0.1.0.pdf).
+The main functions in NUWA package are `NUWAms` and `NUWAeDeconv`. See below for a quick start, while details of each parameters are available in the [manual documentation](https://github.com/WuOmicsLab/NUWA/blob/main/NUWA_1.0.pdf).
 
 ### 1) NUWAms
 
