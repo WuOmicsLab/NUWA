@@ -32,7 +32,7 @@ of LM6 markers needed to run CIBERSORT. Default is 6.}
 \item{LM22_min_marker_num}{a positive integer, indicating the minimal number
 of LM22 markers needed to run CIBERSORT. Default is 6.}
 
-\item{quantileNorm_cibersort}{logical, indciating whether quantile normalization will  be
+\item{quantileNorm_cibersort}{logical, indicating whether quantile normalization will  be
 performed in CIBERSORT analysis. Only set FALSE for RNA-seq data as recommended
 on the CIBERSORT website. Default is TRUE.}
 

@@ -1,6 +1,6 @@
 Package: NUWA
 Type: Package
-Title: A pipeline for robust inference of missing cell markers and deciphering  immune cell fractions using mass spectrometry proteomics
+Title: A pipeline for robust inference of missing cell markers and deciphering immune cell fractions using mass spectrometry proteomics
 Version: 1.0
 Date: 2021-2-4
 Author: Yuhao Xie <xieyuhao@pku.edu.cn>

@@ -15,7 +15,7 @@
 #' of LM6 markers needed to run CIBERSORT. Default is 6.
 #' @param LM22_min_marker_num a positive integer, indicating the minimal number
 #' of LM22 markers needed to run CIBERSORT. Default is 6.
-#' @param quantileNorm_cibersort logical, indciating whether quantile normalization will  be
+#' @param quantileNorm_cibersort logical, indicating whether quantile normalization will  be
 #' performed in CIBERSORT analysis. Only set FALSE for RNA-seq data as recommended
 #' on the CIBERSORT website. Default is TRUE.
 #' @param protein logical, set TRUE for proteomic expression data. If TRUE, signature matrix including 118 markers (union of BCIC and TIC markers) will be used for EPIC analysis. If FALSE, the BCIC markers (n = 65) will be used. Default is TRUE.

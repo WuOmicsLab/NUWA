@@ -9,7 +9,7 @@ recall(x, corMethod = c("spearman", "pearson")[1])
 \arguments{
 \item{x}{a list, the output of NUWAms().}
 
-\item{corMethod}{a character, the type of correlation coeficient to be
+\item{corMethod}{a character, the type of correlation coefficient to be
 used. One of "pearson" or "spearman" (default).}
 }
 \value{
