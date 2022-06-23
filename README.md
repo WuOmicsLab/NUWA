@@ -72,6 +72,8 @@ res_nuwa <- NUWA.mcpcounter(expr = raw_expr)
 
 NUWA is free for academic users of non-commercial purposes. Commercial use of NUWA requires a license. If NUWA package was used for your analysis, please cite our package and the used deconvolution algorithm(s).
 
+## Metaphor of the package name NUWA (女娲)
+In Chinese mythology, [Nuwa](https://mythopedia.com/topics/nuwa) is considered to be the first being and has a famous story for saving humanity by mending a hole in the sky.
 
 ## References
 | Name | license | PMID | Citation |
