@@ -14,7 +14,13 @@ if(!require("remotes", quietly = TRUE))
     install.packages("remotes")
 remotes::install_github('WuOmicsLab/NUWA')
 ```
-Note: if the installation fails due to `glmnet` package, try manual installation by `remotes::install_version("glmnet", version = "4.1-1", repos = "https://cran.us.r-project.org")` before installing `NUWA` package. 
+Note: if the installation fails due to the `glmnet` package, try manual installation as below before installing `NUWA` package.
+
+For Linux users:
+`remotes::install_version("glmnet", version = "4.1-1", repos = "https://cran.us.r-project.org")` 
+
+For Mac/Winodes users:
+`install.packages('glmnet',type='binary')`
 
 ## Usages
 
