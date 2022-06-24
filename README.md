@@ -19,7 +19,7 @@ remotes::install_github('WuOmicsLab/NUWA')
 For Linux users:
 `remotes::install_version("glmnet", version = "4.1-1", repos = "https://cran.us.r-project.org")` 
 
-For Mac/Winodes users:
+For Mac/Windows users:
 `install.packages('glmnet', type='binary')`
 
 ## Usages
