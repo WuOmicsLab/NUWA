@@ -7,7 +7,7 @@ An R package implementing NUWA pipeline for abundance inference of missing cell 
 
 ## Installation
 
-System requirements: R >= 3.6.1
+System requirements: <b>R >= 3.6.1</b>
 
 ```R
 if(!require("remotes", quietly = TRUE))
