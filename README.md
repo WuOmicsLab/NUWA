@@ -33,7 +33,7 @@ For Mac/Windows users:
 ```R
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
-BiocManager::install("preprocessCore")
+BiocManager::install("preprocessCore", configure.args="--disable-threading", force = TRUE)
 ```
 
 ## Usages
