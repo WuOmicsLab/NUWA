@@ -282,9 +282,15 @@ NUWAms <- function(expr, network = NULL, markers = NULL, direction=c("both", "ba
 
 
     # part4. rescale by sample ----------------------
+    genes0 <- intersect(rownames(expr.fill), rownames(expr))
+    if (length(genes0)<20) {
+        warning("The overlaped markers between truth and predictions are ",
+            "fewer than 20, so rescaling process is skipped to maintain ",
+            "numeric stablity")
+        rescale <- FALSE
+    }
     if(rescale) {
         cat("Rescaling\n")
-        genes0 <- intersect(rownames(expr.fill),rownames(expr))
         mat.pred <- expr.fill[genes0, ,drop=F]
         mat.truth <- expr[genes0, ,drop=F]
         for(s in colnames(expr)) {
