@@ -15,7 +15,7 @@ Depends:
     R (>= 3.6.1),
 Imports:
     e1071 (>= 1.7.3),
-    preprocessCore
+    preprocessCore,
     parallel,
     abind,
     reshape2,
