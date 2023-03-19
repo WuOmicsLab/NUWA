@@ -32,7 +32,6 @@ VignetteBuilder: knitr
 Remotes:
     GfellerLab/EPIC,
     ebecht/MCPcounter/Source,
-    bioc::preprocessCore,
     bioc::3.15/GSEABase,
     bioc::3.15/GSVA,
     dviraran/xCell
