@@ -1,4 +1,4 @@
-![header ](imgs/nuwa.png)
+![header ](imgs/nuwa.jpg)
 
 # NUWA
 
