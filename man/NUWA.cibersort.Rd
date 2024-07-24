@@ -25,5 +25,6 @@ Run NUWAms (missing markers inference) and CIBERSORT algorithm (deconvolution) w
 expr <- cptacDatasets$brca[, 1:5]
 res_nuwa <- NUWA.cibersort(expr, cibersortPath = cibersortPath, signature_matrix = LM22)
 res_nuwa <- NUWA.cibersort(expr, cibersortPath = cibersortPath, signature_matrix = NUWAp26)
-res_nuwa <- NUWA.cibersort(expr, cibersortPath = cibersortPath, signature_matrix = my_signature_matrix)
+res_nuwa <- NUWA.cibersort(expr, cibersortPath = cibersortPath, 
+                         signature_matrix = my_signature_matrix)
 }

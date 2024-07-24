@@ -2,7 +2,7 @@
 #'
 #' This function is to infer the abundance of missing markers using the given co-expression networks of individual marker. It may take a few hours, if more than 50 samples were included in the analysis.
 #'
-#' @param expr a numeric matrix of expression profiles for bulk tissue samples, with HUGO gene symbols as rownames and sample identifiers as colnames.
+#' @param expr a numeric matrix of expression profiles for bulk tissue samples, with HUGO gene symbols as rownames and sample identifiers as colnames. Data should be non-logarithm scale. 
 #' @param network a list, consisting of the co-expression networks built by function buildNetwork(). Default is NULL, then the built-in networks using six CPTAC datasets (S025, S029, S037/S045, S043, S044/S050 and S046/S056) for individual proteins of the six datasets will be used. Note that, we only infer abundance for markers existing in the network.
 #' @param markers a character vector of interesting markers to infer. If NULL (default), the union of markers from public signature matrices "LM6", "LM22" and "BCIC" will be used.
 #' @param direction a character, indicating the mode used for feature searching in stepwise regression analysis, one of "both", "backward" or "forward". Default is "both".
@@ -10,6 +10,7 @@
 #' @param preprocess logical. If TURE, expression data is preprocessed before markers inferring. Default is TRUE. See the Methods section of the NUWA manuscript for more details.
 #' @param ncores a positive integer, indicating the number of cores used by this function. If the operating system is windows, then only one core will be used.
 #' @param lambda a character, indicating which value of lambda will be used in the LASSO analysis. One of "lambda.min" or "lambda.1se". "lambda.min" gives lambda with minimal cross-validation errors, and "lambda.1se" gives the largest value of lambda such that the error is within 1 standard error of the minimal. Default is "lambda.1se".
+#' @param quantification_method The quantification method of the proteomic expression matrix, one of "TMT", "iTRAQ" or "label-free-DIA". Default is "TMT". 
 #' @return A list:\describe{
 #'  \item{\code{finalExpr}}{a numeric matrix, the final full dataset of expression with missing markers are inferred.}
 #'  \item{\code{predVsTruth}}{a list with elements comprising the prediction and truth expression matrices of quantified markers, which will be used for the following recall analysis.}
@@ -22,9 +23,13 @@
 #' @examples
 #' expr <- cptacDatasets$brca[, 1:5]
 #' res <- NUWAms(expr)
-NUWAms <- function(expr, network = NULL, markers = NULL, direction=c("both", "backward", "forward")[1],
+NUWAms <- function(expr, network = NULL, markers = NULL,
+                   direction=c("both", "backward", "forward")[1],
                    lasso_step_cutoff=10, preprocess = T, ncores = 16,
-                   lambda = c("lambda.1se", "lambda.min")[1]){
+                   lambda = c("lambda.1se", "lambda.min")[1],
+                   quantification_method=c("TMT", "iTRAQ", "label-free-DIA")[1]
+                   ){
+
     simplifyModel <- function(mod) {
         if(is.null(mod)) return(NULL)
         cla <- class(mod)[1]
@@ -56,7 +61,9 @@ NUWAms <- function(expr, network = NULL, markers = NULL, direction=c("both", "ba
     }
 
     # mar=Marker[,1]
-    # set.seed(1001)
+    # set.seed(1001) 
+    if (quantification_method == "label-free-DIA") { preprocess = TRUE } ## if quantification_method is "label-free-DIA", must set preprocess = TRUE
+
     prep=preprocess
     method <- c('lasso_step','step','RF')[1]
     lazymode <- F
@@ -66,7 +73,7 @@ NUWAms <- function(expr, network = NULL, markers = NULL, direction=c("both", "ba
     expr=data.matrix(expr)
     if(prep) {
         cat("Data preprocessing \n")
-        expr=preprocess(expr, thre = 0)
+        expr=preprocess(expr, thre = 0, quantification_method = quantification_method)
         cat("Finished!\n\n")
     }
     expr_gsls <- global.scale(expr)

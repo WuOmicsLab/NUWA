@@ -1,12 +1,12 @@
 Package: NUWA
 Type: Package
 Title: A pipeline for robust inference of missing cell markers and deciphering immune cell fractions using mass spectrometry proteomics
-Version: 1.0
+Version: 1.1
 Date: 2021-2-4
 Author: Yuhao Xie <xieyuhao@pku.edu.cn>
 Maintainer: Lihua Cao <lihuacao@bjcancer.org>
 Description: NUWA is a computational pipeline for robust abundance inference of missing cell type markers in proteomic profiles (by NUWA-ms) and deciphering makeup of immune cell subsets (by NUWA-eDeconv or other popular deconvolution algorithms), which could enable accurate proteomic deconvolution of tissue-infiltrating cell populations. The performance of NUWA pipeline has been systematically evaluated by multiple approaches with validation using scRNA-seq data, see the NUWA manuscript for more details.
-License: MIT
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: TRUE
 RoxygenNote: 7.3.1
@@ -23,7 +23,8 @@ Imports:
     ggplot2,
     glmnet,
     EPIC,
-    MCPcounter
+    MCPcounter,
+    matrixStats
 Suggests:
     knitr,
     roxygen2,

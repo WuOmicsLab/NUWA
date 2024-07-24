@@ -12,11 +12,12 @@ NUWAms(
   lasso_step_cutoff = 10,
   preprocess = T,
   ncores = 16,
-  lambda = c("lambda.1se", "lambda.min")[1]
+  lambda = c("lambda.1se", "lambda.min")[1],
+  quantification_method = c("TMT", "iTRAQ", "label-free-DIA")[1]
 )
 }
 \arguments{
-\item{expr}{a numeric matrix of expression profiles for bulk tissue samples, with HUGO gene symbols as rownames and sample identifiers as colnames.}
+\item{expr}{a numeric matrix of expression profiles for bulk tissue samples, with HUGO gene symbols as rownames and sample identifiers as colnames. Data should be non-logarithm scale.}
 
 \item{network}{a list, consisting of the co-expression networks built by function buildNetwork(). Default is NULL, then the built-in networks using six CPTAC datasets (S025, S029, S037/S045, S043, S044/S050 and S046/S056) for individual proteins of the six datasets will be used. Note that, we only infer abundance for markers existing in the network.}
 
@@ -31,6 +32,8 @@ NUWAms(
 \item{ncores}{a positive integer, indicating the number of cores used by this function. If the operating system is windows, then only one core will be used.}
 
 \item{lambda}{a character, indicating which value of lambda will be used in the LASSO analysis. One of "lambda.min" or "lambda.1se". "lambda.min" gives lambda with minimal cross-validation errors, and "lambda.1se" gives the largest value of lambda such that the error is within 1 standard error of the minimal. Default is "lambda.1se".}
+
+\item{quantification_method}{The quantification method of the proteomic expression matrix, one of "TMT", "iTRAQ" or "label-free-DIA". Default is "TMT".}
 }
 \value{
 A list:\describe{
