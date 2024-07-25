@@ -10,7 +10,7 @@
 #' @param use.sams logical. If TRUE, genes will be filtered based on the absolute count of non-NA values; otherwise, genes will be filtered based on the relative proportion of non-NA values. Default FALSE
 #' @param thre A threshold ranging from 0 to 100. when use.sams is False, genes with a non-NA value proportion below `thre\%` will be filtered out. Default 0.
 #' @param nsams a cutoff. When use.sams is TRUE, genes with a count of non NA lower than nsams will be filtered out. Default 10.
-#' @param usecap If set to TRUE, lower outliers are replaced with the 5th percentile for each sample, and upper outliers are replaced with the 95th percentile; otherwise, they are replaced with NA. Here low outliers are below Q1 − 1.5 ⋅ IQR ‍ and high outliers are above Q3 + 1.5 ⋅ IQR. Default TRUE.
+#' @param usecap If set to TRUE, lower outliers are replaced with the 5th percentile for each sample, and upper outliers are replaced with the 95th percentile; otherwise, they are replaced with NA. Here low outliers are below Q1 - 1.5 * IQR, and high outliers are above Q3 + 1.5 * IQR. Default TRUE.
 #' @param quantification_method The quantification method of the proteomic expression matrix, one of "TMT", "iTRAQ" or "label-free-DIA". Default is "TMT".
 #' @param logbase The log base of the expression matrix if the quantification values have been log-transformed, one of "No transformation" or "Log2". Default is "No transformation".
 #' @return a numeric matrix of expression profiles after preprocessing.

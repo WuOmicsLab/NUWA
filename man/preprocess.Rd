@@ -32,7 +32,7 @@ preprocess(
 
 \item{nsams}{a cutoff. When use.sams is TRUE, genes with a count of non NA lower than nsams will be filtered out. Default 10.}
 
-\item{usecap}{If set to TRUE, lower outliers are replaced with the 5th percentile for each sample, and upper outliers are replaced with the 95th percentile; otherwise, they are replaced with NA. Here low outliers are below Q1 − 1.5 ⋅ IQR ‍ and high outliers are above Q3 + 1.5 ⋅ IQR. Default TRUE.}
+\item{usecap}{If set to TRUE, lower outliers are replaced with the 5th percentile for each sample, and upper outliers are replaced with the 95th percentile; otherwise, they are replaced with NA. Here low outliers are below Q1 - 1.5 * IQR, and high outliers are above Q3 + 1.5 * IQR. Default TRUE.}
 
 \item{quantification_method}{The quantification method of the proteomic expression matrix, one of "TMT", "iTRAQ" or "label-free-DIA". Default is "TMT".}
 
