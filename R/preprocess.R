@@ -52,9 +52,7 @@ preprocess <- function(expr, idcorr = F, quantile_normalization = T,
     }
 
     # log2 trans
-    if (!any(expr < 0, na.rm = T) | logbase == "No transformation") {
-        expr <- log(expr, 2)
-    }
+    expr <- log(expr, 2)
 
     # geneid correct
     if (idcorr) {

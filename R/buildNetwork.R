@@ -14,7 +14,7 @@
 #'
 #' @param batchInfoList a list containing the batch information corresponding to the training datasets. The batchInfoList should be named using the names of trainsets, or the length of batchInfoList should be equal to the number of trainsets. Each element in the list gives the batch information of one trainset, which is a vector named by the sample identifiers of that trainset.
 #'
-#' @param nTr a positive integer, we only build network for markers existing in greater than or equal to "nTr" training datasets. Default is 3.
+#' @param nTr a positive integer, we only build network for markers existing in greater than or equal to "nTr" training datasets. Default is 2.
 #'
 #' @param corCutoff a positive numeric, specifying the absolute Pearson correlation coefficient threshold above which a co-expression will be declared between individual marker and other quantified protein. For each marker, we identify its “coherently correlated proteins”, i.e., proteins with the same correlation coefficient sign in all training datasets, and with significant correlation (P < 0.05, absolute value of Pearson correlation coefficient greater than "corCutoff") in at least two training datasets. Default is 0.3.
 #'
