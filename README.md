@@ -4,9 +4,9 @@
 
 ## Description
 
-An R package implementing NUWA pipeline for abundance inference of missing key proteins (e.g. immune cell markers) from mass spectrometry-based quantitative proteomic profiles, to enable accurate deconvolution of relative immune cell fractions. It consists of three major modules: 
+An R package implementing NUWA pipeline for abundance inference of missing function proteins (e.g., cell markers, drug targets) from mass spectrometry-based proteomic profiles, and could lead to improved performance of downstream analyses using proteomic profiles, including deconvolution of immune cell composition, and differential expression analysis, etc. NUWA package consists of three major modules:
 
-(1) `NUWAms`: to infer abundances of missing key proteins based on co-expression networks of individual protein of interest. For users' convenience, the package includes built-in cancer co-expression networks for immune cell markers of <b>NUWAp26</b> (a proteomic signature matrix we developed for 26 immune cell types), and a set of previously published immune cell markers (signature genes), including BCIC, LM22, LM6, MCPcounter and xCell. 
+(1) `NUWAms`: to infer abundances of missing  proteins based on co-expression networks of individual protein of interest, by leveraging information borrowed from the cohort profiles (training datasets). The default underlying cohort profiles are CPTAC proteomic datasets of six cancer types, which could be replaced by users (e.g., using multiple datasets for a specific cancer type).
 
 (2) `NUWAeDeconv`: a benchmarked ensemble method of three deconvolution algorithm-signature combinations to estimate the relative fractions of six immune cell types. 
 
@@ -23,13 +23,10 @@ if(!require("remotes", quietly = TRUE))
 remotes::install_github('WuOmicsLab/NUWA')
 ```
 <b>Note 1</b>: if the installation fails due to the `glmnet` package, try manual installation as below before installing `NUWA` package.
-
 For Linux users:
 `remotes::install_version("glmnet", version = "4.1-1", repos = "https://cran.us.r-project.org")` 
-
 For Mac/Windows users:
 `install.packages('glmnet', type='binary')`
-
 <b>Note 2</b>: if the installation fails due to the `preprocessCore` package, try manual installation as below before installing `NUWA` package.
 
 ```R
@@ -40,7 +37,7 @@ BiocManager::install("preprocessCore", configure.args="--disable-threading", for
 
 ## Usages
 
-The main functions in NUWA package are `NUWAms` and `NUWAeDeconv`. See below for a quick start, while details of each parameters are available in the [manual documentation](https://github.com/WuOmicsLab/NUWA/blob/main/NUWA_1.0.pdf).
+The main functions in NUWA package are `NUWAms` and `NUWAeDeconv`. See below for a quick start, while details of each parameters are available in the [manual documentation](https://github.com/WuOmicsLab/NUWA/blob/main/NUWA_1.1.pdf).
 
 ### 1) NUWAms
 
@@ -91,8 +88,7 @@ res_nuwa <- NUWA.mcpcounter(expr = raw_expr)
 "res_nuwa" is a list, including an expression matrix after abundance inference of missing markers using NUWAms modelling, and a matrix with immune cell fractions estimated by the selected algorithm.
 
 ## License
-
-NUWA is free for academic users of non-commercial purposes. Commercial use of NUWA requires a license. If NUWA package was used for your analysis, please cite our package and the used deconvolution algorithm(s).
+NUWA is free for academic users of non-commercial research. Commercial use of NUWA requires a license (contact Dr. Jianmin Wu by wujm@bjmu.edu.cn for details). 
 
 ## Metaphor of the package name NUWA
 In Chinese mythology, [Nuwa](https://mythopedia.com/topics/nuwa) is considered to be the first being and has a famous story for saving humanity by mending a hole in the sky.
