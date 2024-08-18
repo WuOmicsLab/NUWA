@@ -4,7 +4,9 @@
 
 ## Description
 
-An R package implementing NUWA pipeline for abundance inference of missing function proteins (e.g., cell markers, drug targets) from mass spectrometry-based proteomic profiles, and could lead to improved performance of downstream analyses using proteomic profiles, including deconvolution of immune cell composition, and differential expression analysis, etc. NUWA package consists of three major modules:
+Here, we provide an R package implementing NUWA pipeline for abundance inference of missing function proteins (e.g., cell markers, drug targets) from mass spectrometry-based proteomic profiles, and could lead to improved performance of downstream analyses using proteomic profiles, including deconvolution of immune cell composition, differential expression analysis, etc. 
+
+NUWA package consists of three major modules:
 
 (1) `NUWAms`: to infer abundances of missing  proteins based on co-expression networks of individual protein of interest, by leveraging information borrowed from the cohort profiles (training datasets). The default underlying cohort profiles are CPTAC proteomic datasets of six cancer types, which could be replaced by users (e.g., using multiple datasets for a specific cancer type).
 
@@ -24,10 +26,10 @@ remotes::install_github('WuOmicsLab/NUWA')
 ```
 <b>Note 1</b>: if the installation fails due to the `glmnet` package, try manual installation as below before installing `NUWA` package.
 
-For Linux users:
+Linux users:
 `remotes::install_version("glmnet", version = "4.1-1", repos = "https://cran.us.r-project.org")` 
 
-For Mac/Windows users:
+Mac/Windows users:
 `install.packages('glmnet', type='binary')`
 
 <b>Note 2</b>: if the installation fails due to the `preprocessCore` package, try manual installation as below before installing `NUWA` package.
