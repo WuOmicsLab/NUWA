@@ -1,6 +1,6 @@
 Package: NUWA
 Type: Package
-Title: A computational method for network based inference of missing protein abundances utilizing cohort proteomic profiles.
+Title: A computational method for network-based inference of missing protein abundances utilizing cohort proteomic profiles.
 Version: 1.1
 Date: 2024-8-4
 Author: Yuhao Xie <xieyuhao@pku.edu.cn>
