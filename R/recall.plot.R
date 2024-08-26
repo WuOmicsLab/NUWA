@@ -3,18 +3,15 @@
 #'
 #' This function outputs a density plot and a scatter points plot to
 #' visualize NUWA-ms accuracy by evaluating similarity between observed
-#' and inferred abundances for markers with quantification in the
-#' inferred dataset.
+#' and inferred abundances for markers with quantification in the inferred dataset.
 #'
 #' @param recallRes a list, the output of recall function.
-#' @param level a character, one of "marker" (at marker level) and "sample"
-#' (at marker level). Default is "marker". At marker level, scatter plot
-#' showing associations between marker level recall and correlation
-#' coefficients for all samples. Dotted lines indicate a recall of 0.8,
-#' i.e. 80th percentile. At sample level, density plot showing distributions
-#' of correlation coefficients within the same samples or between different
-#' samples. Accuracy rate (AR), representing the overall accuracy in the dataset,
-#' and the number of comparison are indicated.
+#' @param level a character, one of "marker" (at marker level) and "sample" (at sample level). Default is "marker".
+#' At marker level, scatter plot showing associations between marker level recall and correlation coefficients for all samples.
+#' Dotted lines indicate a recall of 0.8, i.e. 80th percentile.
+#' At sample level, density plot showing distributions of correlation coefficients within the same samples or between different samples.
+#' Accuracy rate (AR), representing the overall accuracy in the dataset, and the number of comparisons is indicated.
+#' 
 #' @param ... additional arguments passed to the ggplot2::theme() function.
 #'
 #' @return ggplot object
@@ -22,6 +19,7 @@
 #'
 #' @examples
 #' recall.plot(recallRes, "marker")
+#' recall.plot(recallRes, "sample")
 recall.plot <- function(recallRes, level = c("marker", "sample")[1], ...) {
 
     library(ggplot2)

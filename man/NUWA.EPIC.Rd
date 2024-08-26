@@ -20,7 +20,7 @@ see NUWA.cibersort.
 Run NUWAms and EPIC algorithm with a signature matrix of interest.
 }
 \examples{
-expr <- cptacDatasets$brca[, 1:5]
+expr <- CPTAC.6datasets$brca[, 1:5]
 res_nuwa <- NUWA.EPIC(expr, signature_matrix = BCIC)
 res_nuwa <- NUWA.EPIC(expr, signature_matrix = TIC)
 res_nuwa <- NUWA.EPIC(expr, signature_matrix = my_signature_matrix)

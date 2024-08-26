@@ -2,19 +2,18 @@
 #'
 #' Run NUWAms and xCell algorithm with a marker list of interest.
 #'
-#' @param expr see the same argument of NUWA.cibersort.
-#' @param marker_list a list, whose names are cellular populations' names
-#' and elements are character vectors of markers (HUGO symbols), default is
-#' xCell64.
+#' @param expr see the same argument in NUWA.cibersort.
+#' @param marker_list a list, A list where the names represent cellular populations and the elements are character vectors of markers (HUGO symbols). By default, xCell64 markers are used.
 #' @param ... additional arguments passed to the NUWAms() function
 #'
 #' @return see NUWA.cibersort.
 #' @export
 #'
 #' @examples
-#' expr <- cptacDatasets$brca[, 1:5]
+#' expr <- CPTAC.6datasets$brca[, 1:5]
 #' res_nuwa <- NUWA.xcell(expr, marker_list = NULL)
 #' res_nuwa <- NUWA.xcell(expr, marker_list = my_markers)
+
 NUWA.xcell <- function(expr, marker_list = NULL, ...) {
     if(!require("xCell", quietly = TRUE)) {
         remotes::install_github('dviraran/xCell')

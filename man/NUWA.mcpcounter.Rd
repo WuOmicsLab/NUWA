@@ -2,14 +2,14 @@
 % Please edit documentation in R/NUWA.mcpcounter.R
 \name{NUWA.mcpcounter}
 \alias{NUWA.mcpcounter}
-\title{A portal function running CIBERSORT after NUWAms analysis.}
+\title{A portal function running MCPcounter after NUWAms analysis.}
 \usage{
 NUWA.mcpcounter(expr, marker_list = NULL, ...)
 }
 \arguments{
 \item{expr}{see the same argument in NUWA.cibersort.}
 
-\item{marker_list}{see the same argument in NUWA.xcell, default is MCPcounter markers.}
+\item{marker_list}{a list, which names are cellular populations' names and elements are character vectors of markers (HUGO symbols). Default is MCPcounter markers.}
 
 \item{...}{additional arguments passed to the NUWAms() function}
 }
@@ -20,7 +20,7 @@ see NUWA.cibersort.
 Run NUWAms and MCPcounter algorithm with a marker list of interest.
 }
 \examples{
-expr <- cptacDatasets$brca[, 1:5]
+expr <- CPTAC.6datasets$brca[, 1:5]
 res_nuwa <- NUWA.mcpcounter(expr, marker_list = NULL)
 res_nuwa <- NUWA.mcpcounter(expr, marker_list = my_markers)
 }

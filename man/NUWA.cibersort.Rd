@@ -22,9 +22,10 @@ The results of each built-in NUWA analysis function, is a list containing an exp
 Run NUWAms (missing markers inference) and CIBERSORT algorithm (deconvolution) with a signature matrix of interest.
 }
 \examples{
-expr <- cptacDatasets$brca[, 1:5]
+expr <- CPTAC.6datasets$brca[, 1:5]
+# cibersortPath = "<PATHTO>/CIBERSORT.R"
 res_nuwa <- NUWA.cibersort(expr, cibersortPath = cibersortPath, signature_matrix = LM22)
 res_nuwa <- NUWA.cibersort(expr, cibersortPath = cibersortPath, signature_matrix = NUWAp26)
-res_nuwa <- NUWA.cibersort(expr, cibersortPath = cibersortPath, 
-                         signature_matrix = my_signature_matrix)
+res_nuwa <- NUWA.cibersort(expr, cibersortPath = cibersortPath, signature_matrix = my_signature_matrix)
+
 }

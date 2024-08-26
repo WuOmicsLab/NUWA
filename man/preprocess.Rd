@@ -2,7 +2,7 @@
 % Please edit documentation in R/preprocess.R
 \name{preprocess}
 \alias{preprocess}
-\title{This function serves as an interface for preprocessing raw data, encompassing tasks such as gene ID correction, quantile normalization, filtering out samples with excessive missing values, and eliminating outliers within each sample.}
+\title{Preprocess the numeric matrix of expression profiles.}
 \usage{
 preprocess(
   expr,
@@ -13,20 +13,20 @@ preprocess(
   thre = 0,
   nsams = 10,
   usecap = T,
-  quantification_method = c("TMT", "iTRAQ", "label-free-DIA")[1],
+  quantification_method = c("TMT/iTRAQ ratio", "Label-free intensity")[1],
   logbase = c("No transformation", "Log2")[1]
 )
 }
 \arguments{
 \item{expr}{a numeric matrix of expression profiles for bulk tissue samples, with HUGO gene symbols as rownames and sample identifiers as colnames.}
 
-\item{idcorr}{logical. If set to TRUE, correction will be applied to gene IDs using the gene names provided at https://www.genenames.org/cgi-bin/download/custom?col=gd_app_sym&col=gd_status&col=gd_prev_sym&col=gd_aliases&col=gd_pub_eg_id&status=Approved&status=Entry\%20Withdrawn&hgnc_dbtag=on&order_by=gd_app_sym_sort&format=text&submit=submit. Default FALSE.}
+\item{idcorr}{logical. If set to TRUE, correction will be applied to gene IDs using the gene names provided at \url{https://www.genenames.org/cgi-bin/download/custom?col=gd_app_sym&col=gd_status&col=gd_prev_sym&col=gd_aliases&col=gd_pub_eg_id&status=Approved&status=Entry\%20Withdrawn&hgnc_dbtag=on&order_by=gd_app_sym_sort&format=text&submit=submit}. Default FALSE.}
 
 \item{quantile_normalization}{logical. If TURE, quantile normalization will be performed, default TRUE.}
 
 \item{batchInfo}{A vector or factor of the same length as the number of samples is provided to indicate which samples belong to which batch. The order of this vector should be consistent with the order of the samples. If the order is not consistent, a sample ID-named vector or factor should be used. If this information is provided, quantile normalization is performed within each respective batch. Default NULL.}
 
-\item{use.sams}{logical. If TRUE, genes will be filtered based on the absolute count of non-NA values; otherwise, genes will be filtered based on the relative proportion of non-NA values. Default FALSE}
+\item{use.sams}{logical. If TRUE, genes will be filtered based on the absolute count of non-NA values; otherwise, genes will be filtered based on the relative proportion of non-NA values. Default FALSE.}
 
 \item{thre}{A threshold ranging from 0 to 100. when use.sams is False, genes with a non-NA value proportion below `thre\%` will be filtered out. Default 0.}
 
@@ -34,17 +34,19 @@ preprocess(
 
 \item{usecap}{If set to TRUE, lower outliers are replaced with the 5th percentile for each sample, and upper outliers are replaced with the 95th percentile; otherwise, they are replaced with NA. Here low outliers are below Q1 - 1.5 * IQR, and high outliers are above Q3 + 1.5 * IQR. Default TRUE.}
 
-\item{quantification_method}{The quantification method of the proteomic expression matrix, one of "TMT", "iTRAQ" or "label-free-DIA". Default is "TMT".}
+\item{quantification_method}{The quantification method used in MS-proteomic profiling, "TMT/iTRAQ ratio" or "Label-free intensity". Default is "TMT/iTRAQ ratio".}
 
 \item{logbase}{The log base of the expression matrix if the quantification values have been log-transformed, one of "No transformation" or "Log2". Default is "No transformation".}
 }
 \value{
-a numeric matrix of expression profiles after preprocessing.
+A numeric matrix of expression profiles after preprocessing.
 }
 \description{
 This function serves as an interface for preprocessing raw data, encompassing tasks such as gene ID correction, quantile normalization, filtering out samples with excessive missing values, and eliminating outliers within each sample.
 }
 \examples{
-expr <- cptacDatasets$brca[, 1:5]
-res <- preprocess(expr)
+expr <- CPTAC.6datasets$brca[, 1:5]
+res <- preprocess(expr,
+            quantification_method = "TMT/iTRAQ ratio",
+            logbase = "No transformation")
 }

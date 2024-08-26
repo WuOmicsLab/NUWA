@@ -2,7 +2,7 @@
 % Please edit documentation in R/NUWAms.R
 \name{NUWAms}
 \alias{NUWAms}
-\title{Infer proteomic expression abundance using the given co-expression networks of individual marker for user provided marker list.}
+\title{Infer proteomic abundance using the given co-expression networks of individual marker, for user provided marker proteins.}
 \usage{
 NUWAms(
   expr,
@@ -13,30 +13,33 @@ NUWAms(
   preprocess = T,
   ncores = 16,
   lambda = c("lambda.1se", "lambda.min")[1],
-  quantification_method = c("TMT", "iTRAQ", "label-free-DIA")[1]
+  quantification_method = c("TMT/iTRAQ ratio", "Label-free intensity")[1],
+  logbase = c("No transformation", "Log2")[1]
 )
 }
 \arguments{
-\item{expr}{a numeric matrix of expression profiles for bulk tissue samples, with HUGO gene symbols as rownames and sample identifiers as colnames. Data should be non-logarithm scale.}
+\item{expr}{a numeric matrix of expression profiles for bulk tissue samples, with HUGO gene symbols as rownames and sample identifiers as colnames.}
 
-\item{network}{a list, consisting of the co-expression networks built by function buildNetwork(). Default is NULL, then the built-in networks using six CPTAC datasets (S025, S029, S037/S045, S043, S044/S050 and S046/S056) for individual proteins of the six datasets will be used. Note that, we only infer abundance for markers existing in the network.}
+\item{network}{a list, consisting of the co-expression networks built by function buildNetwork(). A list containing built-in networks for 10487 proteins (\code{NETWORK_LIST.10487markers}) will be used, when Default (NULL) is applied. It was constructed using CPTAC proteomic datasets of six cancer types. Please note, we only infer abundance for markers existing in the provided network.}
 
-\item{markers}{a character vector of interesting markers to infer. If NULL (default), the union of markers from public signature matrices "LM6", "LM22" and "BCIC" will be used.}
+\item{markers}{a character vector of interesting markers to infer. If NULL (default) provided, a pre-defined list "\code{MARKERS_Immune.1114}" (1114 immune marker proteins collected from public studies) will be used. Another two pre-defined lists, including "\code{MARKER_FDA_Drug_Targets.812}" (FDA-approved drug targets from HPA and Drugbank) and "\code{MARKERS_Immune.NUWAp26}" (631 immune cell markers from proteomic signature matrix NUWAp26 we developed for 26 immune cell types) were also provided for convenience.}
 
 \item{direction}{a character, indicating the mode used for feature searching in stepwise regression analysis, one of "both", "backward" or "forward". Default is "both".}
 
 \item{lasso_step_cutoff}{a positive integer, specifying the minimal number of variables needed to run LASSO regression analysis. If the number is less than "lasso_step_cutoff", stepwise regression models will be constructed. Default is 10.}
 
-\item{preprocess}{logical. If TURE, expression data is preprocessed before markers inferring. Default is TRUE. See the Methods section of the NUWA manuscript for more details.}
+\item{preprocess}{logical. If TURE, expression data is preprocessed before markers inference. Default is TRUE. See preprocess() function and the Methods section of the NUWA manuscript for more details.}
 
 \item{ncores}{a positive integer, indicating the number of cores used by this function. If the operating system is windows, then only one core will be used.}
 
 \item{lambda}{a character, indicating which value of lambda will be used in the LASSO analysis. One of "lambda.min" or "lambda.1se". "lambda.min" gives lambda with minimal cross-validation errors, and "lambda.1se" gives the largest value of lambda such that the error is within 1 standard error of the minimal. Default is "lambda.1se".}
 
-\item{quantification_method}{The quantification method of the proteomic expression matrix, one of "TMT", "iTRAQ" or "label-free-DIA". Default is "TMT".}
+\item{quantification_method}{The quantification method used in MS-proteomic profiling, "TMT/iTRAQ ratio" or "Label-free intensity". Default is "TMT/iTRAQ ratio".}
+
+\item{logbase}{The log base of the expression matrix if the quantification values have been log-transformed, one of "No transformation" or "Log2". Default is "No transformation".}
 }
 \value{
-A list:\describe{
+A list containing:\describe{
  \item{\code{finalExpr}}{a numeric matrix, the final full dataset of expression with missing markers are inferred.}
  \item{\code{predVsTruth}}{a list with elements comprising the prediction and truth expression matrices of quantified markers, which will be used for the following recall analysis.}
  \item{\code{inferenceMat}}{a numeric matrix, a subset of the full dataset "finalExpr", a expression matrix only including markers inferred by NUWAms() function.}
@@ -44,9 +47,9 @@ A list:\describe{
 }
 }
 \description{
-This function is to infer the abundance of missing markers using the given co-expression networks of individual marker. It may take a few hours, if more than 50 samples were included in the analysis.
+This function is to infer abundances of missing proteins based on co-expression networks of individual protein of interest (termed as marker), by leveraging information borrowed from the cohort profiles (training datasets). The default underlying cohort profiles are CPTAC proteomic datasets of six cancer types (breast cancer, clear cell renal cell carcinoma, colon adenocarcinoma, endometrial carcinoma, gastric cancer, lung adenocarcinoma), which could be replaced by users (e.g., using multiple datasets for a specific cancer type). It may take a few hours, if more than 50 samples were included in the analysis.
 }
 \examples{
-expr <- cptacDatasets$brca[, 1:5]
+expr <- CPTAC.6datasets$brca[, 1:5]
 res <- NUWAms(expr)
 }

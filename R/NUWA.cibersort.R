@@ -11,11 +11,12 @@
 #' @export
 #'
 #' @examples
-#' expr <- cptacDatasets$brca[, 1:5]
+#' expr <- CPTAC.6datasets$brca[, 1:5]
+#' # cibersortPath = "<PATHTO>/CIBERSORT.R"
 #' res_nuwa <- NUWA.cibersort(expr, cibersortPath = cibersortPath, signature_matrix = LM22)
 #' res_nuwa <- NUWA.cibersort(expr, cibersortPath = cibersortPath, signature_matrix = NUWAp26)
-#' res_nuwa <- NUWA.cibersort(expr, cibersortPath = cibersortPath, 
-#'                          signature_matrix = my_signature_matrix)
+#' res_nuwa <- NUWA.cibersort(expr, cibersortPath = cibersortPath, signature_matrix = my_signature_matrix)
+#'
 NUWA.cibersort <- function(expr, signature_matrix, cibersortPath, ...) {
     if (!check_cibersort(cibersortPath)){
         stop("Invalid cibersort path. Please download script from cibersort website (https://cibersort.stanford.edu).")

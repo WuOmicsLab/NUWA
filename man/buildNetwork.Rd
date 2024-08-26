@@ -15,9 +15,9 @@ buildNetwork(
 )
 }
 \arguments{
-\item{trainsets}{a list containing the datasets used to build the network and train regression models later. Each dataset of the list should be a numeric expression matrix with HUGO gene symbols as rownames and sample identifiers as colnames. Data should be non-logarithm scale. Default is NULL, then a list including proteomic expression matrices of the six CPTAC datasets (S025, S029, S037/S045, S043, S044/S050 and S046/S056) will be used.}
+\item{trainsets}{a list containing the underlying datasets used for building the co-expression networks and for training regression models in the subsequent analysis. Each dataset in the list should be a numeric expression matrix (non-logarithm scale), with HUGO gene symbols as rownames and sample identifiers as colnames. When default (NULL) is applied, a list "CPTAC.6datasets" including CPTAC proteomic datasets of six cancer types (breast cancer, clear cell renal cell carcinoma, colon adenocarcinoma, endometrial carcinoma, gastric cancer, lung adenocarcinoma) will be used. Users can provide customized datasets with more specific context, e.g., multiple datasets for a specific cancer type.}
 
-\item{markers}{a character vector of interesting markers, which are the candidate cores of the network. If NULL (default), the union of markers from public signature matrices "LM6", "LM22"and "BCIC" will be used.}
+\item{markers}{a character vector of interesting proteins (termed as marker) to infer. If NULL (default) provided, a pre-defined list "MARKERS_Immune.1114" (1114 immune marker proteins collected from public studies) will be used. Another two pre-defined lists, "MARKER_FDA_Drug_Targets.812" (FDA-approved drug targets from HPA and Drugbank) and "MARKERS_Immune.NUWAp26" (631 immune cell markers from proteomic signature matrix NUWAp26 we developed for 26 immune cell types) were also provided for convenience.}
 
 \item{preprocess}{logical. If TURE, each matrix in "trainsets" is preprocessed before network building. Default is TRUE. See the Methods section of the NUWA manuscript for more details.}
 
@@ -25,7 +25,7 @@ buildNetwork(
 
 \item{nTr}{a positive integer, we only build network for markers existing in greater than or equal to "nTr" training datasets. Default is 2.}
 
-\item{corCutoff}{a positive numeric, specifying the absolute Pearson correlation coefficient threshold above which a co-expression will be declared between individual marker and other quantified protein. For each marker, we identify its “coherently correlated proteins”, i.e., proteins with the same correlation coefficient sign in all training datasets, and with significant correlation (P < 0.05, absolute value of Pearson correlation coefficient greater than "corCutoff") in at least two training datasets. Default is 0.3.}
+\item{corCutoff}{a positive numeric, specifying the absolute Pearson correlation coefficient threshold above which a co-expression will be declared between individual marker and other quantified protein. For each marker, we identify its "coherently correlated proteins", i.e., proteins with the same correlation coefficient sign in all training datasets, and with significant correlation (P < 0.05, absolute value of Pearson correlation coefficient greater than "corCutoff") in at least two training datasets. Default is 0.3.}
 
 \item{ncores}{a positive integer, indicating the number of cores used by this function. If the operating system is windows, then only one core will be used.}
 }
@@ -43,6 +43,6 @@ to select proteins with correlated expression relationship of a marker
 (two or more proteome datasets needed).
 }
 \examples{
-my.net <- buildNetwork(cptacDatasets[1:3])
+my.net <- buildNetwork(CPTAC.6datasets[1:5])
 str(my.net)
 }
