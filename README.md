@@ -54,9 +54,9 @@ res_nuwams <- NUWAms(expr = raw_expr, # Provided raw proteomic abundance matrix 
                     markers = my.markers, # Provided proteins of interest
                     )
 ```
-`res_nuwams` is a list including an expression matrix after abundance inference of missing markers, and additional matrices used to evaluate the inference accuracy. 
+Function output `res_nuwams` is a list including an expression matrix after abundance inference of missing markers, and additional matrices used to evaluate the inference accuracy. 
 
-<b>Note</b>: NUWAmsonly infers abundance for markers having a co-expression network. 
+<b>Note</b>: NUWAms only infers abundance for markers having a co-expression network. 
 
 (**b**) Run `NUWAms` uing the marker co-expression networks, bulit using user provided training datasets (e.g. multiple datasets for a specific cancer type). An additional step is then needed to  build co-expression networks, by running function `buildNetwork`.
 
@@ -81,7 +81,7 @@ cibersortPath = "<PATHTO>/CIBERSORT.R" # The local file path to CIBERSORT R sour
 res_deconv <- NUWAeDeconv(expr = res_nuwams$finalExpr, cibersortPath = cibersortPath)
 ```
 
-`res_deconv` includes matrices for immune cell fractions estimated by `NUWAeDeconv`,  original predictions and updated ones (with cell types merged)  by CIBERSORT-LM22, CIBERSORT-LM6 and EPIC-BCIC, respectively. 
+Function output`res_deconv` includes matrices for immune cell fractions estimated by `NUWAeDeconv`,  original predictions and updated ones (with cell types merged)  by CIBERSORT-LM22, CIBERSORT-LM6 and EPIC-BCIC, respectively. 
 
 
 ### 3) Other deconvolution approaches
@@ -98,7 +98,7 @@ res_nuwa <- NUWA.xcell(expr = raw_expr)
 # run NUWAms and MCPcounter algorithm
 res_nuwa <- NUWA.mcpcounter(expr = raw_expr)
 ```
-`res_nuwa` is a list, including an expression matrix after abundance inference of missing markers using NUWAms modelling, and a matrix with immune cell fractions estimated by the selected algorithm.
+Function output `res_nuwa` is a list, including an expression matrix after abundance inference of missing markers using NUWAms modelling, and a matrix with immune cell fractions estimated by the selected algorithm.
 
 ## License
 NUWA is free for academic users of non-commercial research. Commercial use of NUWA requires a license (contact Dr. Jianmin Wu by wujm@bjmu.edu.cn for details). 
