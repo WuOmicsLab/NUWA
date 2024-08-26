@@ -46,17 +46,20 @@ The main functions in NUWA package are `NUWAms` and `NUWAeDeconv`. See below f
 
 ### 1) NUWAms
 
-`NUWAms` takes a protein abundance matrix and a co-expression networks (optional) as input. Each column of protein abundance matrix represents a sample and each row represents a protein.  
+`NUWAms` infers missing values for proteins of interest (termed as marker), with raw proteomic abundance matrix and co-expression networks taken as input. 
 
-(**a**) Run `NUWAms` using the default co-expression network for LM22, LM6 and BCIC signatures:
+(**a**) Run `NUWAms` using the default co-expression networks for 10487 proteins (`NETWORK_LIST.10487markers`), which were constructed using CPTAC proteomic datasets of six cancer types (breast cancer, clear cell renal cell carcinoma, colon cancer, endometrial cancer, gastric cancer, lung cancer). 
+
 
 ```R
 library(NUWA)  ## load NUWA package
 res_nuwams = NUWAms(expr = raw_expr, network = NULL)
 ```
-"res_nuwams" is a list including an expression matrix after abundance inference of missing markers using NUWAms modelling, and additional matrices used to evaluate the inference accuracy.
+`res_nuwams` is a list including an expression matrix after abundance inference of missing markers, and additional matrices used to evaluate the inference accuracy. 
 
-(**b**) Run `NUWAms` with a customized co-expression network, which is built by function `buildNetwork` using user provided training datasets and marker genes:
+Note: NUWAmsonly infers abundance for markers having a co-expression network. 
+
+(**b**) Run `NUWAms` uing the marker co-expression networks, bulit using user provided training datasets (e.g. multiple datasets for a specific cancer type). An additional step is then needed to  build co-expression networks, by running function `buildNetwork`.
 
 ```R
 my.network <- buildNetwork(trainsets = cptacDatasets, markers = my.markers)
