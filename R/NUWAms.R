@@ -3,13 +3,18 @@
 #' This function is to infer abundances of missing proteins based on co-expression networks of individual protein of interest (termed as marker), by leveraging information borrowed from the cohort profiles (training datasets). The default underlying cohort profiles are CPTAC proteomic datasets of six cancer types (breast cancer, clear cell renal cell carcinoma, colon adenocarcinoma, endometrial carcinoma, gastric cancer, lung adenocarcinoma), which could be replaced by users (e.g., using multiple datasets for a specific cancer type). It may take a few hours, if more than 50 samples were included in the analysis.
 #'
 #' @param expr a numeric matrix of expression profiles for bulk tissue samples, with HUGO gene symbols as rownames and sample identifiers as colnames.
-#' @param network a list, consisting of the co-expression networks built by function buildNetwork(). A list containing built-in networks for 10487 proteins (\code{NETWORK_LIST.10487markers}) will be used, when Default (NULL) is applied. It was constructed using CPTAC proteomic datasets of six cancer types. Please note, we only infer abundance for markers existing in the provided network. 
-#' @param markers a character vector of interesting markers to infer. If NULL (default) provided, a pre-defined list "\code{MARKERS_Immune.1114}" (1114 immune marker proteins collected from public studies) will be used. Another two pre-defined lists, including "\code{MARKER_FDA_Drug_Targets.812}" (FDA-approved drug targets from HPA and Drugbank) and "\code{MARKERS_Immune.NUWAp26}" (631 immune cell markers from proteomic signature matrix NUWAp26 we developed for 26 immune cell types) were also provided for convenience.
+#' 
+#' @param network a list, consisting of the co-expression networks built by function buildNetwork(). A list containing built-in networks for 10487 proteins (NETWORK_LIST.10487markers) will be used, when Default (NULL) is applied. It was constructed using CPTAC proteomic datasets of six cancer types. Please note, we only infer abundance for markers existing in the provided network. 
+#' 
+#' @param markers a character vector of interesting proteins (termed as marker) to infer. If NULL (default) provided, a pre-defined list MARKERS_Immune.1114 (1114 immune marker proteins collected from public studies) will be used. Another two pre-defined lists, including MARKER_FDA_Drug_Targets.812 (FDA-approved drug targets from HPA and Drugbank) and MARKERS_Immune.NUWAp26 (631 immune cell markers from proteomic signature matrix NUWAp26 we developed for 26 immune cell types) were also provided for convenience.
+#' 
 #' @param direction a character, indicating the mode used for feature searching in stepwise regression analysis, one of "both", "backward" or "forward". Default is "both".
 #' @param lasso_step_cutoff a positive integer, specifying the minimal number of variables needed to run LASSO regression analysis. If the number is less than "lasso_step_cutoff", stepwise regression models will be constructed. Default is 10.
+#' 
 #' @param preprocess logical. If TURE, expression data is preprocessed before markers inference. Default is TRUE. See preprocess() function and the Methods section of the NUWA manuscript for more details.
 #' @param ncores a positive integer, indicating the number of cores used by this function. If the operating system is windows, then only one core will be used.
 #' @param lambda a character, indicating which value of lambda will be used in the LASSO analysis. One of "lambda.min" or "lambda.1se". "lambda.min" gives lambda with minimal cross-validation errors, and "lambda.1se" gives the largest value of lambda such that the error is within 1 standard error of the minimal. Default is "lambda.1se".
+#' 
 #' @param quantification_method The quantification method used in MS-proteomic profiling, "TMT/iTRAQ ratio" or "Label-free intensity". Default is "TMT/iTRAQ ratio".
 #' @param logbase The log base of the expression matrix if the quantification values have been log-transformed, one of "No transformation" or "Log2". Default is "No transformation".
 
@@ -25,6 +30,9 @@
 #' @examples
 #' expr <- CPTAC.6datasets$brca[, 1:5]
 #' res <- NUWAms(expr)
+#' res <- NUWAms(expr, markers = MARKER_FDA_Drug_Targets.812)
+#' 
+
 NUWAms <- function(expr, network = NULL, markers = NULL,
                    direction=c("both", "backward", "forward")[1],
                    lasso_step_cutoff=10, preprocess = T, ncores = 16,

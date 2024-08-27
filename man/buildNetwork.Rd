@@ -15,9 +15,9 @@ buildNetwork(
 )
 }
 \arguments{
-\item{trainsets}{a list containing the underlying datasets used for building the co-expression networks and for training regression models in the subsequent analysis. Each dataset in the list should be a numeric expression matrix (non-logarithm scale), with HUGO gene symbols as rownames and sample identifiers as colnames. When default (NULL) is applied, a list "CPTAC.6datasets" including CPTAC proteomic datasets of six cancer types (breast cancer, clear cell renal cell carcinoma, colon adenocarcinoma, endometrial carcinoma, gastric cancer, lung adenocarcinoma) will be used. Users can provide customized datasets with more specific context, e.g., multiple datasets for a specific cancer type.}
+\item{trainsets}{a list containing the underlying datasets used for building the co-expression networks and for training regression models in the subsequent analysis. Each dataset in the list should be a numeric expression matrix (non-logarithm scale), with HUGO gene symbols as rownames and sample identifiers as colnames. When default (NULL) is applied, a list including CPTAC proteomic datasets of six cancer types (breast cancer, clear cell renal cell carcinoma, colon adenocarcinoma, endometrial carcinoma, gastric cancer, lung adenocarcinoma) will be used (CPTAC.6datasets). Users can provide customized datasets with more specific context, e.g., multiple datasets for a specific cancer type.}
 
-\item{markers}{a character vector of interesting proteins (termed as marker) to infer. If NULL (default) provided, a pre-defined list "MARKERS_Immune.1114" (1114 immune marker proteins collected from public studies) will be used. Another two pre-defined lists, "MARKER_FDA_Drug_Targets.812" (FDA-approved drug targets from HPA and Drugbank) and "MARKERS_Immune.NUWAp26" (631 immune cell markers from proteomic signature matrix NUWAp26 we developed for 26 immune cell types) were also provided for convenience.}
+\item{markers}{a character vector of interesting proteins (termed as marker) that need to build co-expression networks. If NULL (default) provided, a pre-defined list MARKERS_Immune.1114 (1114 immune marker proteins collected from public studies) will be used. Another two pre-defined lists, including MARKER_FDA_Drug_Targets.812 (FDA-approved drug targets from HPA and Drugbank) and MARKERS_Immune.NUWAp26 (631 immune cell markers from proteomic signature matrix NUWAp26 we developed for 26 immune cell types) were also provided for convenience.}
 
 \item{preprocess}{logical. If TURE, each matrix in "trainsets" is preprocessed before network building. Default is TRUE. See the Methods section of the NUWA manuscript for more details.}
 
@@ -45,4 +45,5 @@ to select proteins with correlated expression relationship of a marker
 \examples{
 my.net <- buildNetwork(CPTAC.6datasets[1:5])
 str(my.net)
+
 }

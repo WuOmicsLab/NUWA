@@ -20,9 +20,9 @@ NUWAms(
 \arguments{
 \item{expr}{a numeric matrix of expression profiles for bulk tissue samples, with HUGO gene symbols as rownames and sample identifiers as colnames.}
 
-\item{network}{a list, consisting of the co-expression networks built by function buildNetwork(). A list containing built-in networks for 10487 proteins (\code{NETWORK_LIST.10487markers}) will be used, when Default (NULL) is applied. It was constructed using CPTAC proteomic datasets of six cancer types. Please note, we only infer abundance for markers existing in the provided network.}
+\item{network}{a list, consisting of the co-expression networks built by function buildNetwork(). A list containing built-in networks for 10487 proteins (NETWORK_LIST.10487markers) will be used, when Default (NULL) is applied. It was constructed using CPTAC proteomic datasets of six cancer types. Please note, we only infer abundance for markers existing in the provided network.}
 
-\item{markers}{a character vector of interesting markers to infer. If NULL (default) provided, a pre-defined list "\code{MARKERS_Immune.1114}" (1114 immune marker proteins collected from public studies) will be used. Another two pre-defined lists, including "\code{MARKER_FDA_Drug_Targets.812}" (FDA-approved drug targets from HPA and Drugbank) and "\code{MARKERS_Immune.NUWAp26}" (631 immune cell markers from proteomic signature matrix NUWAp26 we developed for 26 immune cell types) were also provided for convenience.}
+\item{markers}{a character vector of interesting proteins (termed as marker) to infer. If NULL (default) provided, a pre-defined list MARKERS_Immune.1114 (1114 immune marker proteins collected from public studies) will be used. Another two pre-defined lists, including MARKER_FDA_Drug_Targets.812 (FDA-approved drug targets from HPA and Drugbank) and MARKERS_Immune.NUWAp26 (631 immune cell markers from proteomic signature matrix NUWAp26 we developed for 26 immune cell types) were also provided for convenience.}
 
 \item{direction}{a character, indicating the mode used for feature searching in stepwise regression analysis, one of "both", "backward" or "forward". Default is "both".}
 
@@ -52,4 +52,6 @@ This function is to infer abundances of missing proteins based on co-expression 
 \examples{
 expr <- CPTAC.6datasets$brca[, 1:5]
 res <- NUWAms(expr)
+res <- NUWAms(expr, markers = MARKER_FDA_Drug_Targets.812)
+
 }

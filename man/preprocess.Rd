@@ -20,7 +20,7 @@ preprocess(
 \arguments{
 \item{expr}{a numeric matrix of expression profiles for bulk tissue samples, with HUGO gene symbols as rownames and sample identifiers as colnames.}
 
-\item{idcorr}{logical. If set to TRUE, correction will be applied to gene IDs using the gene names provided at \url{https://www.genenames.org/cgi-bin/download/custom?col=gd_app_sym&col=gd_status&col=gd_prev_sym&col=gd_aliases&col=gd_pub_eg_id&status=Approved&status=Entry\%20Withdrawn&hgnc_dbtag=on&order_by=gd_app_sym_sort&format=text&submit=submit}. Default FALSE.}
+\item{idcorr}{logical. If set to TRUE, correction will be applied to gene IDs using the gene names provided at https://www.genenames.org. Default FALSE.}
 
 \item{quantile_normalization}{logical. If TURE, quantile normalization will be performed, default TRUE.}
 

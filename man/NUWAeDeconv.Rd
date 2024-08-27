@@ -17,7 +17,7 @@ NUWAeDeconv(
 \arguments{
 \item{expr}{a numeric matrix of expression profiles for bulk tissue samples, with HUGO gene symbols as rownames and sample identifiers as colnames. Data must be non-logarithm scale.}
 
-\item{cibersortPath}{a string specifying the path of CIBERSORT R script, CIBERSORT is only freely available for academic users, please register on \url{https://cibersort.stanford.edu}, and download the CIBERSORT source script.}
+\item{cibersortPath}{a string specifying the path of CIBERSORT R script, CIBERSORT is only freely available for academic users, please register on https://cibersort.stanford.edu, and download the CIBERSORT source script.}
 
 \item{BCIC_min_marker_num}{a positive integer, indicating the minimal number of BCIC markers needed to run EPIC. Default is 6.}
 
@@ -41,7 +41,7 @@ A list containing:\describe{
 This function integrates deconvolution results of three algorithm-signature combinations selected from our benchmark analysis, and provides the relative proportions of six immune cell types in mixture samples. See the NUWA manuscript for more details.
 }
 \examples{
-# You need to provide path to CIBERSORT.R
-# cibersortPath = "<PATHTO>/CIBERSORT.R"
-my.nuwadec = NUWAeDeconv(expr=my.nuwams$finalExpr, cibersortPath= cibersortPath)
+ # You need to provide path to CIBERSORT.R
+ # cibersortPath = "<PATHTO>/CIBERSORT.R"
+ my.nuwadec = NUWAeDeconv(expr=my.nuwams$finalExpr, cibersortPath= cibersortPath)
 }
