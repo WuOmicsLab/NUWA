@@ -21,8 +21,9 @@
 #' @param ncores a positive integer, indicating the number of cores used by this function. If the operating system is windows, then only one core will be used.
 #'
 #' @return A list containing:\describe{
-#'  \item{\code{corr}}{a numeric data frame of Pearson correlation coefficients between markers and other proteins.}
+#'  \item{\code{input_markers}}{a character vector, containing the user provided markers.}
 #'  \item{\code{markers}}{a character vector, containing the markers with co-expression networks.}
+#'  \item{\code{genepair}}{a character vector, containing the correlated gene pairs (i.e, coherently correlated proteins of each marker).}
 #'  \item{\code{trainScaled}}{a list containing the preprocessed training datasets.}
 #'  }
 #' @export
@@ -42,10 +43,10 @@ buildNetwork <- function(trainsets = NULL, markers = NULL, preprocess = T,
         if (nTr == 2 & corCutoff == 0.3 & (!preprocess)) {
             cat("Using pre-computed network\n")
             nw <- pruneNetwork(markers)
-            # nw <- NETWORK
+            # nw <- NETWORK_LIST.10487markers
             # gps <- nw$genepair
             # gpls <- strsplit(gps, "~")
-            # markers <- intersect(markers, NETWORK$markers)
+            # markers <- intersect(markers, NETWORK_LIST.10487markers$markers)
             # gps <- gps[sapply(gpls, function(x) {any(x %in% markers)})]
             # nw$markers <- markers
             # nw$genepair <- gps
@@ -135,9 +136,9 @@ buildNetwork <- function(trainsets = NULL, markers = NULL, preprocess = T,
 }
 
 
-pruneNetwork <- function(markers, network = NETWORK){
+pruneNetwork <- function(markers, network = NETWORK_LIST.10487markers){
     nw <- network
-    isdef <- identical(nw, NETWORK)
+    isdef <- identical(nw, NETWORK_LIST.10487markers)
     if(isdef){
         nw$trainScaled <- lapply(CPTAC.6datasets, function(exp) exp <- global.scale(exp)$y)
     }

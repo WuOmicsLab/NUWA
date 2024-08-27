@@ -31,8 +31,9 @@ buildNetwork(
 }
 \value{
 A list containing:\describe{
- \item{\code{corr}}{a numeric data frame of Pearson correlation coefficients between markers and other proteins.}
+ \item{\code{input_markers}}{a character vector, containing the user provided markers.}
  \item{\code{markers}}{a character vector, containing the markers with co-expression networks.}
+ \item{\code{genepair}}{a character vector, containing the correlated gene pairs (i.e, coherently correlated proteins of each marker).}
  \item{\code{trainScaled}}{a list containing the preprocessed training datasets.}
  }
 }
