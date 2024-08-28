@@ -6,7 +6,7 @@ Here, we provide an R package implementing NUWA pipeline for abundance inference
 
 The major functions are listed below:
 
-(1) `NUWAms`: to infer abundances of missing  proteins based on co-expression networks of individual protein of interest, by leveraging information borrowed from the cohort profiles (training datasets). The default underlying cohort profiles are CPTAC proteomic datasets of six cancer types, which could be replaced by users (e.g., using multiple datasets for a specific cancer type).
+(1) `NUWAms`: to infer abundances of missing proteins based on co-expression networks of individual protein of interest, by leveraging information borrowed from the cohort profiles (training datasets). The default underlying cohort profiles are CPTAC proteomic datasets of six cancer types, which could be replaced by users (e.g., using multiple datasets for a specific cancer type).
 
 (2) `NUWAeDeconv`: a benchmarked ensemble method of three deconvolution algorithm-signature combinations to estimate the relative fractions of six immune cell types. 
 
@@ -51,14 +51,14 @@ The main functions in NUWA package are `NUWAms` and `NUWAeDeconv`. See below f
 ```R
 library(NUWA)  # load NUWA package
 res_nuwams <- NUWAms(expr = raw_expr, # Provided raw proteomic abundance matrix for inference of missing values
-                    markers = my.markers, # Provided proteins of interest
+                    markers = my.markers # Provided proteins of interest
                     )
 ```
 Function output `res_nuwams` is a list including an expression matrix after abundance inference of missing markers, and additional matrices used to evaluate the inference accuracy. 
 
 <b>Note</b>: NUWAms only infers abundance for markers having a co-expression network. 
 
-(**b**) Run `NUWAms` uing the marker co-expression networks, bulit using user provided training datasets (e.g. multiple datasets for a specific cancer type). An additional step is then needed to  build co-expression networks, by running function `buildNetwork`.
+(**b**) Run `NUWAms` using the marker co-expression networks, built using user provided training datasets (e.g. multiple datasets for a specific cancer type). An additional step is then needed to build co-expression networks, by running function `buildNetwork`.
 
 ```R
 my.network <- buildNetwork(trainsets = list_trainsets, # Provided list containing user provided multiple trainsets 
@@ -81,7 +81,7 @@ cibersortPath = "<PATHTO>/CIBERSORT.R" # The local file path to CIBERSORT R sour
 res_deconv <- NUWAeDeconv(expr = res_nuwams$finalExpr, cibersortPath = cibersortPath)
 ```
 
-Function output`res_deconv` includes matrices for immune cell fractions estimated by `NUWAeDeconv`,  original predictions and updated ones (with cell types merged)  by CIBERSORT-LM22, CIBERSORT-LM6 and EPIC-BCIC, respectively. 
+Function output`res_deconv` includes matrices for immune cell fractions estimated by `NUWAeDeconv`, original predictions and updated ones (with cell types merged)  by CIBERSORT-LM22, CIBERSORT-LM6 and EPIC-BCIC, respectively. 
 
 
 ### 3) Other deconvolution approaches
@@ -92,11 +92,11 @@ Additional convenient portal functions are provided for deconvolution analysis u
 # run NUWAms and EPIC
 res_nuwa <- NUWA.EPIC(expr = raw_expr, signature_matrix = BCIC)
 
-# run NUWAms and xCell algorithm
-res_nuwa <- NUWA.xcell(expr = raw_expr)
-
 # run NUWAms and MCPcounter algorithm
 res_nuwa <- NUWA.mcpcounter(expr = raw_expr)
+
+# run NUWAms and xCell algorithm
+res_nuwa <- NUWA.xcell(expr = raw_expr) # It may take a few hours
 ```
 Function output `res_nuwa` is a list, including an expression matrix after abundance inference of missing markers using NUWAms modelling, and a matrix with immune cell fractions estimated by the selected algorithm.
 
