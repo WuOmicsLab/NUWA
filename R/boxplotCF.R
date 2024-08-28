@@ -17,11 +17,13 @@
 #' @export
 #'
 #' @examples
+#' set.seed(2024)
 #' promat <- runif(10 * 7,min = 0, max = 1)
 #' promat <- matrix(promat, nrow = 10)
 #' rownames(promat) <- paste0("sample_", 1:10)
 #' colnames(promat) <- paste0("ct_", 1:7)
 #' promat <- promat / rowSums(promat)
+#' set.seed(2024)
 #' groupinfo <- sample(paste0('Group_', letters[1:3]), 10, replace = T)
 #' boxplotCF(promat, groupInfo = groupinfo)
 boxplotCF <- function(mat, groupInfo, groupCol=NULL, groupOrder = NULL,

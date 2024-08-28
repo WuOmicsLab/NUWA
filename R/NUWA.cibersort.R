@@ -48,9 +48,9 @@ NUWA.cibersort <- function(expr, signature_matrix, cibersortPath, ...) {
     predVsTruth <- res$predVsTruth
 
     prop <- CIBERSORT(signature_matrix, mix, QN = T)
-    if (!impute) {
-        mix <- NULL
-        predVsTruth <- NULL
-    }
+    # if (!impute) {
+    #     mix <- NULL
+    #     predVsTruth <- NULL
+    # }
     return(list(proportion = prop, finalExpr = mix, predVsTruth = predVsTruth))
 }
