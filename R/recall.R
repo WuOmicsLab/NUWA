@@ -24,8 +24,8 @@
 recall <- function(x, corMethod = c("spearman", "pearson")[1]){
     truth.pred=x$predVsTruth
     pred=truth.pred[['pred']]
-    if(min(dim(pred))<=3) {
-        stop("Recall can not be computed when the number of samples or genes is less than or equal to 3.")
+    if(min(dim(pred))<=10) {
+        stop("Recall can not be computed when the number of samples or genes is less than or equal to 10.")
     }
     truth=truth.pred[['truth']]
 
