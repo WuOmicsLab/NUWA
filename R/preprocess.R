@@ -114,10 +114,12 @@ preprocess <- function(expr, idcorr = F, quantile_normalization = T,
         modcombat <- model.matrix(~1, data = id_batch_df)
         expr <- sva::ComBat(dat = expr, batch = batchs, mod = modcombat, par.prior = TRUE, prior.plot = FALSE, mean.only = TRUE)
         expr.qn <- expr
-    } else {
+    } else if (quantile_normalization & (!have_batch_info)){
         expr.qn <- preprocessCore::normalize.quantiles(as.matrix(expr), copy = TRUE)
         rownames(expr.qn) <- rownames(expr)
         colnames(expr.qn) <- colnames(expr)
+    } else {
+        expr.qn <- expr
     }
 
     # debug(expr.qn,5); dim(expr.qn)
