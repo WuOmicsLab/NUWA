@@ -49,11 +49,11 @@ preprocess <- function(expr, idcorr = F, quantile_normalization = T,
     # TMT-like trans for label-free data (non-log scale)
     if (quantification_method == "Label-free intensity") {
         ## row-level (within gene) ratio trans: exp_row/median_row
-        v0 <- rowMedians(expr, na.rm=T)
+        v0 <- rowMedians(as.matrix(expr), na.rm=T)
         mat_r <- expr/v0
 
         ## column-level (within sample) ratio trans: exp_column/median_column
-        v1 <- colMedians(mat_r, na.rm=T)
+        v1 <- colMedians(as.matrix(mat_r), na.rm=T)
         expr <- t(apply(mat_r, 1, function(x) {x/v1}))
     }
 
