@@ -7,6 +7,7 @@ Here, we provide an R package implementing NUWA pipeline for abundance inference
 The major functions are listed below:
 
 (1) `NUWAms`: to infer abundances of missing proteins based on co-expression networks of individual protein of interest, by leveraging information borrowed from the cohort profiles (training datasets). The default underlying cohort profiles are CPTAC proteomic datasets of six cancer types, which could be replaced by users (e.g., using multiple datasets for a specific cancer type).
+
 A user-friendly web interface is available at https://omics.bjcancer.org/nuwa, allowing NUWA-ms analysis in a convenient manner.
 
 (2) `NUWAeDeconv`: a benchmarked ensemble method of three deconvolution algorithm-signature combinations to estimate the relative fractions of six immune cell types. 
